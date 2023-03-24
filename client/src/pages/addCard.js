@@ -1,4 +1,4 @@
-import Atropos from 'atropos'
+// import Atropos from 'atropos'
 
 export default function AddCard() {
 	return (
