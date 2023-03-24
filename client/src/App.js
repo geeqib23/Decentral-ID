@@ -4,15 +4,12 @@ import Nav from './components/nav'
 // Importing Router
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Login from './pages/login'
+import Home from './pages/home'
 
 const router = createBrowserRouter([
 	{
 		path: '/',
-		element: (
-			<div className='flex h-full w-full justify-center items-center'>
-				Home page
-			</div>
-		),
+		element: <Home />,
 	},
 	{
 		path: '/login',
