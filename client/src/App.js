@@ -23,7 +23,7 @@ const router = createBrowserRouter([
 
 function App() {
 	return (
-		<div className='w-full h-full bg-zinc-800'>
+		<div className='w-full h-full bg-gray-100'>
 			<Nav />
 			<RouterProvider router={router} />
 		</div>
