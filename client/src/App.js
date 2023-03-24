@@ -3,6 +3,7 @@ import Nav from './components/nav'
 
 // Importing Router
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Login from './pages/login'
 
 const router = createBrowserRouter([
 	{
@@ -15,11 +16,7 @@ const router = createBrowserRouter([
 	},
 	{
 		path: '/login',
-		element: (
-			<div className='flex h-full w-full justify-center items-center'>
-				Login
-			</div>
-		),
+		element: <Login />,
 	},
 ])
 
