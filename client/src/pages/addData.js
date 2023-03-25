@@ -1,17 +1,17 @@
 export default function AddData() {
 	return (
-		<div className='w-full h-full flex flex-col justify-center items-center'>
-			<div className='flex flex-col justify-center items-center bg-gray-50 p-10 rounded-lg'>
+		<div className='w-full h-full flex flex-col justify-center items-center pt-14'>
+			<div className='flex flex-col justify-center items-center bg-gray-50 p-4 rounded-lg'>
 				<h1 className='text-4xl mb-10'>Add Details</h1>
 
 				<form class='w-full max-w-lg'>
-					<div class='flex flex-wrap -mx-3 mb-6'>
-						<div class='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
+					<div class='flex flex-wrap -mx-3 mb-4'>
+						<div class='w-full md:w-full px-3 mb-6 md:mb-0'>
 							<label
 								class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
 								for='grid-first-name'
 							>
-								First Name
+								name
 							</label>
 							<input
 								class='appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white'
@@ -20,23 +20,9 @@ export default function AddData() {
 								placeholder='Jane'
 							/>
 						</div>
-						<div class='w-full md:w-1/2 px-3'>
-							<label
-								class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
-								for='grid-last-name'
-							>
-								Last Name
-							</label>
-							<input
-								class='appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-								id='grid-last-name'
-								type='text'
-								placeholder='Doe'
-							/>
-						</div>
 					</div>
 
-					<div class='flex flex-wrap -mx-3 mb-6'>
+					<div class='flex flex-wrap -mx-3 mb-4'>
 						<div class='w-full md:w-1/3 px-3 mb-6 md:mb-0'>
 							<label
 								class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
@@ -81,60 +67,37 @@ export default function AddData() {
 						</div>
 					</div>
 
-					<div class='flex flex-wrap -mx-3 mb-2'>
-						<div class='w-full md:w-1/4 px-3 mb-6 md:mb-0'>
+					<div class='flex flex-wrap -mx-3 mt-4'>
+						<div class='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
 							<label
 								class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
-								for='grid-city'
+								for='grid-first-name'
 							>
-								City
+								mobile
 							</label>
 							<input
-								class='appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-								id='grid-city'
+								class='appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white'
+								id='grid-first-name'
 								type='text'
-								placeholder='Albuquerque'
+								placeholder='Jane'
 							/>
 						</div>
-						<div class='w-full md:w-2/4 px-3 mb-6 md:mb-0'>
+						<div class='w-full md:w-1/2 px-3 mb-4 md:mb-0'>
 							<label
 								class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
 								for='grid-state'
 							>
-								State
+								Gender
 							</label>
 							<div class='relative'>
 								<select
 									class='block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-									placeholder='state'
+									placeholder='gender'
 								>
-									<option>Select</option>
-									<option>Andhra Pradesh</option>
-									<option>Arunachal Pradesh</option>
-									<option>Assam</option>
-									<option>Bihar</option>
-									<option>Chhattisgarh</option>
-									<option>Goa</option>
-									<option>Gujarat</option>
-									<option>Haryana</option>
-									<option>Himachal Pradesh</option>
-									<option>Kerala</option>
-									<option>Madhya Pradesh</option>
-									<option>Maharashtra</option>
-									<option>Manipur Tripura</option>
-									<option>Meghalaya</option>
-									<option>Mizoram</option>
-									<option>Nagaland</option>
-									<option>Odisha</option>
-									<option>Punjab</option>
-									<option>Rajasthan</option>
-									<option>Karnataka</option>
-									<option>Sikkim</option>
-									<option>Tamil Nadu</option>
-									<option>Tripura</option>
-									<option>Uttar pradesh</option>
-									<option>Uttarakhand</option>
-									<option>West Bengal</option>
+									<option>Male</option>
+									<option>Male</option>
+									<option>Female</option>
+									<option>Other</option>
 								</select>
 								<div class='pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700'>
 									<svg
@@ -147,25 +110,40 @@ export default function AddData() {
 								</div>
 							</div>
 						</div>
-						<div class='w-full md:w-1/4 px-3 mb-6 md:mb-0'>
+
+						<div class='w-full px-3 mt-4'>
 							<label
 								class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
-								for='grid-zip'
+								for='grid-first-name'
 							>
-								Zip
+								College Name
 							</label>
 							<input
-								class='appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-								id='grid-zip'
-								type='text'
-								placeholder='90210'
+								class='appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white'
+								id='grid-first-name'
+								type='phone'
+								placeholder='Jane'
+							/>
+						</div>
+						<div class='w-full px-3 mt-4'>
+							<label
+								class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
+								for='grid-first-name'
+							>
+								Email
+							</label>
+							<input
+								class='appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white'
+								id='grid-first-name'
+								type='email'
+								placeholder='Jane'
 							/>
 						</div>
 					</div>
 				</form>
 
-				<button className='w-full h-7 bg-cyan-500 my-6 text-white p-5 flex justify-center items-center rounded font-semibold'>
-                    Add Data 
+				<button className='w-full h-7 bg-cyan-500 mt-4 text-white p-5 flex justify-center items-center rounded font-semibold'>
+					Add Data
 					<svg
 						xmlns='http://www.w3.org/2000/svg'
 						width='25'
