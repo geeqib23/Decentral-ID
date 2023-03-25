@@ -5,3 +5,4 @@ const API = axios.create({
 });
 
 export const login = (walletHash) => API.post('/user/login', { hash_id: walletHash });
+export const getVerifierHash = (name) => API.post('/verifier/getVerifierHash', { name: name });

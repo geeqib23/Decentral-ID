@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { create  } from "ipfs-http-client";
+import { TransactionContext } from "../context/TransactionContext";
+import * as API from "../api/index";
 
 const AddDocument = () => {
+	const {submitDocument} = useContext(TransactionContext)
 	const projectId = '2NTEjHeG4NfpOuXQtsMzDCN7aVy';
 	const projectSecretKey = '9ac5a480614ba7885aabc99c9c3d45f4';
 	const authorization = "Basic " + window.btoa(projectId + ":" + projectSecretKey);
@@ -18,6 +21,17 @@ const AddDocument = () => {
 	const [formData, setFormData] = useState(initialState)
 	const [application, setApplication] = useState('Select')
 	const [document, setDocument] = useState('Select')
+	const [isHash, setIsHash] = useState(0)
+
+	useEffect(() => {
+		if (isHash == 1) {
+			const { name, dob, mobile, sex, college, email, verifier, cid } = formData;
+			submitDocument(verifier,cid,name,sex,dob,mobile,email,college);
+		console.log(formData)
+
+		}
+	}, [isHash])
+	
 
 	const documentMap = {
 		Select: [],
@@ -46,6 +60,18 @@ const AddDocument = () => {
 		'12th Mark sheet': ['CBSE', 'ICSE', 'State Board'],
 		'College Result Transcript': ['MNNIT A', 'NITT', 'NITK'],
 	}
+
+	const getHash = (name) => {
+		try {
+			API.getVerifierHash(name).then((res) => {
+				console.log(res.data.result);
+				setFormData({ ...formData, verifier: res.data.result });
+				setIsHash(1);
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
 	
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -59,14 +85,13 @@ const AddDocument = () => {
 
 		const doc = docs[0];
 		const result = await ipfs.add(doc);
-		setFormData({ ...formData, cid: result.path });
+		setFormData((prev) => ({ ...prev.formData, cid: result.path }));
+		const { verifier } = formData;
+		getHash(verifier);
 
-		const { name, dob, mobile, sex, college, email, verifier, cid } = formData;
 
-		console.log(formData)
-		if (!name || !dob || !mobile || !sex || !college || !email || !verifier  || !cid) return;
-	
 		console.log('TODO SOLIDITY')
+		
 	};
 
 	const handleChange = (e) => {

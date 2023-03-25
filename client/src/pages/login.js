@@ -12,12 +12,14 @@ function Wallet(props) {
 
 const Login = () => {
   const { connectWallet, currentAccount } = useContext(TransactionContext);
-  const [redirectState, setRedirectState] = useState(0);
+//   const [redirectState, setRedirectState] = useState(0);
   const navigate = useNavigate();
   useEffect(() => {
     if (currentAccount != "") {
+		console.log(currentAccount)
       API.login(currentAccount).then((res) => {
-        if (res.data.isAdmin) 
+		console.log(res.data.isVerifier)
+        if (res.data.isVerifier) 
           navigate('/admin')
         else 
           navigate('/home')
