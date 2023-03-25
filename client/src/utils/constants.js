@@ -1,4 +1,4 @@
 import abi from './SmartContract.json';
 
 export const contractABI = abi.abi;
-export const contractAddress = '0x8a49F03e96444aBF9Ec3242ec9a82056Be88b901';
+export const contractAddress = '0xeA7Af653B716c08743CEa53D8d35C49D6D5892F8';
