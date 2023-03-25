@@ -6,6 +6,7 @@ import { connect } from "./utils/db.js";
 import { config } from "dotenv";
 
 import loginRouter from "../routes/login.js";
+import verifierRouter from "../routes/verifier.js";
 
 const app = express();
 const { json, urlencoded } = pkg;
@@ -22,6 +23,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/user", loginRouter);
+app.use("/verifier", verifierRouter);
 
 app.listen(PORT, async () => {
   config({ path: ".env" });

@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { TransactionContext } from "../context/TransactionContext";
+import { Navigate, useNavigate} from "react-router-dom";
+import * as API from "../api/index";
 import { AiOutlineDoubleRight } from "react-icons/ai";
 
 const Home = () => {
@@ -6,6 +9,22 @@ const Home = () => {
   const [access, setAccess] = useState(false);
   const [reuqest, setRequest] = useState(false);
   const [status, setStatus] = useState(false);
+
+  const { currentAccount } = useContext(TransactionContext);
+	const navigate = useNavigate();
+
+  useEffect(() => {
+    if (currentAccount != "") {
+		console.log(currentAccount)
+      API.login(currentAccount).then((res) => {
+		console.log(res.data.isVerifier)
+        if (res.data.isVerifier) 
+          navigate('/admin')
+        else 
+          navigate('/home')
+      });
+    }
+  }, [currentAccount]);
 
   return (
     <div className="flex justify-center pt-20 space-x-5">
