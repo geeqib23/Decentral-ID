@@ -1,43 +1,26 @@
 import './App.css'
 import Nav from './components/nav'
-
-// Importing Router
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Login from './pages/login'
 import Home from './pages/home'
 import AddCard from './pages/addCard'
-import AddData from './pages/addData'
-import Status from './pages/status'
+// import "atropos/css";
 
-const router = createBrowserRouter([
-	{
-		path: '/',
-		element: <Home />,
-	},
-	{
-		path: '/login',
-		element: <Login />,
-	},
-	{
-		path: '/addCard',
-		element: <AddCard />,
-	},
-	{
-		path: '/addData',
-		element: <AddData />,
-	},
-	{
-		path: '/status',
-		element: <Status />,
-	},
-])
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { TransactionsProvider } from './context/TransactionContext'
 
-function App() {
+import React from 'react'
+
+const App = () => {
 	return (
-		<div className='w-full h-full bg-gray-100 overflow-y-hidden overflow-x-visible'>
-			<Nav />
-			<RouterProvider router={router} />
-		</div>
+		<BrowserRouter>
+			<TransactionsProvider>
+				<Routes>
+					<Route path='/home' element={<Home />} />
+					<Route path='/admin' element={<AddCard />} />
+					<Route path='/' exact element={<Login />} />
+				</Routes>
+			</TransactionsProvider>
+		</BrowserRouter>
 	)
 }
 
