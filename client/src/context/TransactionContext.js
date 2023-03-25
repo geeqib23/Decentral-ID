@@ -3,6 +3,7 @@ import { ethers } from "ethers";
 
 import { contractABI, contractAddress } from "../utils/constants";
 import { Navigate, useNavigate } from "react-router";
+import * as API from "../api/index";
 
 export const TransactionContext = React.createContext();
 
@@ -23,6 +24,7 @@ export const TransactionsProvider = ({ children }) => {
   const navigate = useNavigate();
   const [userVReqList,setUserVReqList] = useState([]);
   const [verifierVReqList,setVerifierVReqList] = useState([]);
+  const [isAdmin,setIsAdmin] = useState();
 
   const submitDocument = async (
     verifier,
@@ -130,6 +132,13 @@ export const TransactionsProvider = ({ children }) => {
       if (!ethereum) return alert("Please install MetaMask.");
 
       const accounts = await ethereum.request({ method: "eth_requestAccounts", });
+      API.login(currentAccount).then((res) => {
+        console.log(res.data.isVerifier)
+            if (res.data.isVerifier) 
+              setIsAdmin(true)
+              else 
+              setIsAdmin(false)
+          });
       console.log(accounts);  
       setCurrentAccount(accounts[0]);
     } catch (error) {

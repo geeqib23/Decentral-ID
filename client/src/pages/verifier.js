@@ -1,27 +1,28 @@
 import { useContext, useEffect, useState } from "react";
 import { TransactionContext } from "../context/TransactionContext";
 import { Navigate, useNavigate} from "react-router-dom";
-import * as API from "../api/index";
+import Nav from "../components/nav";
 
 const Verifier = () => { 
-	const { currentAccount } = useContext(TransactionContext);
+	const { currentAccount,isAdmin } = useContext(TransactionContext);
 	const navigate = useNavigate();
 
   useEffect(() => {
+	console.log("SS")
     if (currentAccount != "") {
 		console.log(currentAccount)
-      API.login(currentAccount).then((res) => {
-		console.log(res.data.isVerifier)
-        if (res.data.isVerifier) 
+		if(isAdmin)
           navigate('/admin')
         else 
           navigate('/home')
-      });
-    }
+      };
   }, [currentAccount]);
 
     return (
-		<div className='w-full h-full p-5 pt-20 flex flex-col justify-center items-center'>
+		<div className='w-full h-full overflow-x-hidden justify-center items-center'>
+				<Nav />
+				<div className='w-full h-full flex flex-col items-center'>
+
 				<h1 className="text-4xl pb-10">Verification Panel</h1>
 				<table class='w-2/4 rounded-lg border-2 border-gray'>
 					<thead class='bg-cyan-500'>
@@ -93,6 +94,7 @@ const Verifier = () => {
 						</tr>
 					</tbody>
 				</table>
+				</div>
 			</div>
 		)
 }

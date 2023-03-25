@@ -1,18 +1,21 @@
 export default function Nav() {
 	return (
-		<div className='w-full h-14 bg-cyan-500 flex justify-between p-5 items-center text-white'>
-			<h1 className='font-extrabold'>Project Name</h1>
-			<div className='flex space-x-3'>
-				<div className='bg-cyan-900 p-1 px-5 rounded-md drop-shadow-md hover:drop-shadow-lg text-sm border-transparent border-2 hover:border-cyan-700'>
-					<a href='/home'>Home</a>
-				</div>
-				<div className='bg-cyan-900  p-1 px-5 rounded-md drop-shadow-md hover:drop-shadow-lg text-sm border-transparent border-2 hover:border-cyan-700'>
-					<a href='/'>Login</a>
-				</div>
-				<div className='bg-cyan-900  p-1 px-5 rounded-md drop-shadow-md hover:drop-shadow-lg text-sm border-transparent border-2 hover:border-cyan-700'>
-					<a href='/addDocument'>Feature</a>
+			<div className='w-full p-10 flex justify-between'>
+				<h1 className='text-3xl font-bold'>Project Name</h1>
+				<div className='flex space-x-5'>
+					<a
+						href='/addDocument'
+						className='p-3 bg-blue-300 hover:bg-blue-500 rounded-md'
+					>
+						Add Verification Request
+					</a>
+					<a
+						href='/home'
+						className='p-3 bg-blue-300 hover:bg-blue-500 rounded-md'
+					>
+						My Requests Status
+					</a>
 				</div>
 			</div>
-		</div>
 	)
 }
