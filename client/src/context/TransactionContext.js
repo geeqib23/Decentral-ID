@@ -12,7 +12,7 @@ const createEthereumContract = () => {
   const provider = new ethers.providers.Web3Provider(ethereum);
   const signer = provider.getSigner();
   const smartContract = new ethers.Contract(contractAddress, contractABI, signer);
-  
+  // console.log(smartContract)
   return smartContract;
 };
 
@@ -24,12 +24,44 @@ export const TransactionsProvider = ({ children }) => {
   const [userVReqList,setUserVReqList] = useState([]);
   const [verifierVReqList,setVerifierVReqList] = useState([]);
 
+  const submitDocument = async (
+    verifier,
+    cid,
+    name,
+    sex,
+    dob,
+    mobile,
+    email,
+    college
+  ) => {
+    try {
+      if (ethereum) {
+        const transactionsContract = createEthereumContract();
+        //convert
+        const verifierAddress = "0x27510d27b0B5c8c813A893726DcEAB6a933345da"
+        const isOver18 = true
+        const isCollegeStudent = false
+        const res = await transactionsContract.addVReq(verifierAddress,cid,name,sex,dob,mobile,email,college,isOver18,isCollegeStudent);
+
+        console.log(res);
+
+        // setUserVReqList(userList);
+        navigate('/home')
+
+      } else {
+        console.log("Ethereum is not present");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const loadUserList = async () => {
     try {
       if (ethereum) {
         const transactionsContract = createEthereumContract();
 
-        const userList = await transactionsContract.getUserVerificationReqList();
+        const userList = await transactionsContract.showUserVerificationReqList();
 
         console.log(userList);
 
@@ -118,7 +150,8 @@ export const TransactionsProvider = ({ children }) => {
         loadUserList,
         loadVerifierList,
         userVReqList,
-        verifierVReqList
+        verifierVReqList,
+        submitDocument
       }}
     >
       {children}
