@@ -19,21 +19,28 @@ const Login = () => {
   }, [currentAccount]);
 
   return (
-    <div className="flex w-full h-full justify-center items-center">
-      <div className="w-1/4 h-3/5 bg-gray-200 drop-shadow-md rounded-lg flex flex-col items-center p-5">
-        {/* {redirectState === 1 && <Navigate to="/admin" />}
+		<div
+			className='flex w-full h-full justify-center items-center bg-cover bg-no-repeat'
+			style={{
+				backgroundImage:
+					'url("https://images.unsplash.com/photo-1568607689150-17e625c1586e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80")',
+			}}
+		>
+			<div className='w-1/4 h-3/5 bg-white/0.5 drop-shadow-md rounded-lg flex flex-col items-center p-5 backdrop-blur-2xl'>
+				{/* {redirectState === 1 && <Navigate to="/admin" />}
         {redirectState === 2 && <Navigate to="/addDocument" />} */}
-        <div className="font-bold text-2xl">
-          Login
-        </div>
-        <div className="w-full h-full flex justify-center items-center">
-          <div onClick={connectWallet} className="font-semibold p-3 bg-gray-400 rounded-md text-white border-2 border-zinc-400 drop-shadow-lg hover:drop-shadow-xl hover:scale-105 transition-all cursor-pointer">
-            {"Login with <project-name>"}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+				<div className='font-bold text-2xl'>Login</div>
+				<div className='w-full h-full flex justify-center items-center'>
+					<div
+						onClick={connectWallet}
+						className='font-semibold p-3 bg-cyan-700 rounded-md text-white border-2 border-cyan-900 drop-shadow-lg hover:drop-shadow-xl hover:scale-105 transition-all cursor-pointer'
+					>
+						{'Login with <project-name>'}
+					</div>
+				</div>
+			</div>
+		</div>
+	)
 };
 
 export default Login;
