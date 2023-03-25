@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AiOutlineDoubleRight } from "react-icons/ai";
+import io from "socket.io-client";
 
 const Home = () => {
   const [driving, setDriving] = useState(false);
@@ -9,11 +10,11 @@ const Home = () => {
 
   return (
     <div className="flex justify-center pt-20 space-x-5">
-      <div className="w-80 border flex flex-col items-center rounded-lg border-gray-400">
-        <div className="bg-cyan-500 w-full p-5 text-white font-bold rounded-t-lg">
+      <div className="flex flex-col items-center border border-gray-400 rounded-lg w-80">
+        <div className="w-full p-5 font-bold text-white rounded-t-lg bg-cyan-500">
           User menu
         </div>
-        <div className="w-full p-5 flex flex-col items-center transition-all">
+        <div className="flex flex-col items-center w-full p-5 transition-all">
           <a
             onMouseEnter={() => setDriving(true)}
             onMouseLeave={() => setDriving(false)}
