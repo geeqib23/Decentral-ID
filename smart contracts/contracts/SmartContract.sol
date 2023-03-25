@@ -16,7 +16,7 @@ contract SmartContract {
     }
 
     struct VReq {
-        uint cid;
+        bytes32 cid;
         address user;
         Scopes scopes;
         int status;
@@ -41,7 +41,7 @@ contract SmartContract {
 
     function addVReq(
         address verifier,
-        uint cid,
+        bytes32 cid,
         string memory name,
         string memory sex,
         string memory dob,
