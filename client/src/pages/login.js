@@ -5,7 +5,7 @@ import * as API from "../api/index";
 
 const Login = () => {
   const { connectWallet, currentAccount } = useContext(TransactionContext);
-  const [redirectState, setRedirectState] = useState(0);
+//   const [redirectState, setRedirectState] = useState(0);
   const navigate = useNavigate();
   useEffect(() => {
     if (currentAccount != "") {
