@@ -22,7 +22,7 @@ const Login = () => {
     <div className="flex w-full h-full justify-center items-center">
       <div className="w-1/4 h-3/5 bg-gray-200 drop-shadow-md rounded-lg flex flex-col items-center p-5">
         {redirectState === 1 && <Navigate to="/admin" />}
-        {redirectState === 2 && <Navigate to="/home" />}
+        {redirectState === 2 && <Navigate to="/addDocument" />}
         <div className="font-bold text-2xl">
           Login
         </div>
