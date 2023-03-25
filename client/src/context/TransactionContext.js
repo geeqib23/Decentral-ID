@@ -2,6 +2,7 @@ import React, { useDebugValue, useEffect, useState } from "react";
 import { ethers } from "ethers";
 
 import { contractABI, contractAddress } from "../utils/constants";
+import { socket } from '../socket';
 import { Navigate, useNavigate } from "react-router";
 import * as API from "../api/index";
 
@@ -25,6 +26,21 @@ export const TransactionsProvider = ({ children }) => {
   const [userVReqList,setUserVReqList] = useState([]);
   const [verifierVReqList,setVerifierVReqList] = useState([]);
   const [isAdmin,setIsAdmin] = useState();
+
+  useEffect(() => {
+    socket.connect();
+    if (currentAccount !== "")
+      socket.emit("ADDR", currentAccount);
+  
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (currentAccount !== "")
+      socket.emit("ADDR", currentAccount);
+  }, [currentAccount]);
 
   const submitDocument = async (
     verifier,
@@ -97,7 +113,7 @@ export const TransactionsProvider = ({ children }) => {
   useEffect(() => {
     window.ethereum.on('accountsChanged', accounts => {
       if (accounts.length)
-        setCurrentAccount(accounts[0])
+        setCurrentAccount(accounts[0]);
       else
         setCurrentAccount("");
     });
@@ -155,6 +171,7 @@ export const TransactionsProvider = ({ children }) => {
 	return (
     <TransactionContext.Provider
       value={{
+        checkIfWalletIsConnect,
         connectWallet,
         currentAccount,
         isLoading,
