@@ -11,7 +11,7 @@ const Login = () => {
     if (currentAccount != "") {
       API.login(currentAccount).then((res) => {
         if (res.data.isAdmin) 
-          navigate('/admin');
+          navigate('/admin')
         else 
           navigate('/addDocument')
       });
