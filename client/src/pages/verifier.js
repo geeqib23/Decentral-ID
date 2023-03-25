@@ -1,6 +1,9 @@
-export default function Status() { 
+export default function Verifier() { 
     return (
-			<div className='w-full h-full p-5 pt-20 flex justify-center items-center'>
+		<div className='w-full h-full p-5 pt-20 flex flex-col justify-center items-center'>
+			
+
+				<h1 className="text-4xl pb-10">Verification Panel</h1>
 				<table class='w-2/4 rounded-lg border-2 border-gray'>
 					<thead class='bg-cyan-500'>
 						<tr>
