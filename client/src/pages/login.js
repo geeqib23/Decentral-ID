@@ -1,19 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import { TransactionContext } from "../context/TransactionContext";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate} from "react-router-dom";
 import * as API from "../api/index";
 
 const Login = () => {
   const { connectWallet, currentAccount } = useContext(TransactionContext);
   const [redirectState, setRedirectState] = useState(0);
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (currentAccount != "") {
       API.login(currentAccount).then((res) => {
         if (res.data.isAdmin) 
-          setRedirectState(1);
+          navigate('/admin');
         else 
-          setRedirectState(2);
+          navigate('/addDocument')
       });
     }
   }, [currentAccount]);
@@ -21,8 +21,8 @@ const Login = () => {
   return (
     <div className="flex w-full h-full justify-center items-center">
       <div className="w-1/4 h-3/5 bg-gray-200 drop-shadow-md rounded-lg flex flex-col items-center p-5">
-        {redirectState === 1 && <Navigate to="/admin" />}
-        {redirectState === 2 && <Navigate to="/addDocument" />}
+        {/* {redirectState === 1 && <Navigate to="/admin" />}
+        {redirectState === 2 && <Navigate to="/addDocument" />} */}
         <div className="font-bold text-2xl">
           Login
         </div>
