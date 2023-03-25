@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { create  } from "ipfs-http-client";
+import { TransactionContext } from "../context/TransactionContext";
 
 const AddDocument = () => {
+	const {submitDocument} = useContext(TransactionContext)
 	const projectId = '2NTEjHeG4NfpOuXQtsMzDCN7aVy';
 	const projectSecretKey = '9ac5a480614ba7885aabc99c9c3d45f4';
 	const authorization = "Basic " + window.btoa(projectId + ":" + projectSecretKey);
@@ -59,14 +61,16 @@ const AddDocument = () => {
 
 		const doc = docs[0];
 		const result = await ipfs.add(doc);
-		setFormData({ ...formData, cid: result.path });
+		setFormData((prev) => ({ ...prev.formData, cid: result.path }));
 
 		const { name, dob, mobile, sex, college, email, verifier, cid } = formData;
 
 		console.log(formData)
-		if (!name || !dob || !mobile || !sex || !college || !email || !verifier  || !cid) return;
-	
+
+		
 		console.log('TODO SOLIDITY')
+		submitDocument(verifier,result.path,name,sex,dob,mobile,email,college);
+		
 	};
 
 	const handleChange = (e) => {
