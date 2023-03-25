@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { create  } from "ipfs-http-client";
 import { TransactionContext } from "../context/TransactionContext";
 import * as API from "../api/index";
+import Web3 from 'web3';
+import { ethers } from "ethers";
 
 const AddDocument = () => {
 	const {submitDocument} = useContext(TransactionContext)
@@ -26,7 +28,7 @@ const AddDocument = () => {
 	useEffect(() => {
 		if (isHash == 1) {
 			const { name, dob, mobile, sex, college, email, verifier, cid } = formData;
-			submitDocument(verifier,cid,name,sex,dob,mobile,email,college);
+			submitDocument(verifier,ethers.utils.hexZeroPad(Web3.utils.asciiToHex(cid), 32),name,sex,dob,parseInt(mobile),email,college);
 		console.log(formData)
 
 		}
@@ -85,6 +87,7 @@ const AddDocument = () => {
 
 		const doc = docs[0];
 		const result = await ipfs.add(doc);
+		console.log("DENNIS", typeof result.path)
 		setFormData((prev) => ({ ...prev.formData, cid: result.path }));
 		const { verifier } = formData;
 		getHash(verifier);
