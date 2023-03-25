@@ -11,22 +11,18 @@ const Home = () => {
   const [reuqest, setRequest] = useState(false);
   const [status, setStatus] = useState(false);
 
-  const { currentAccount } = useContext(TransactionContext);
+  const { currentAccount, checkIfWalletIsConnect } = useContext(TransactionContext);
 	const navigate = useNavigate();
 
   useEffect(() => {
-    socket.connect();
-  
-    return () => {
-      socket.disconnect();
-    };
+    checkIfWalletIsConnect();
   }, []);
 
   useEffect(() => {
-    if (currentAccount != "") {
-		console.log(currentAccount)
+    if (currentAccount !== "") {
+		  console.log(currentAccount)
       API.login(currentAccount).then((res) => {
-		console.log(res.data.isVerifier)
+		  console.log(res.data.isVerifier)
         if (res.data.isVerifier) 
           navigate('/admin')
         else 
