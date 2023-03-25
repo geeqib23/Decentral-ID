@@ -18,6 +18,10 @@ const io = new Server(server, {
 
 io.on('connection', socket => {
   console.log(`[CONNECTION]: ${socket.id}`);
+
+  socket.on('ADDR', data => {
+    console.log(data);
+  })
 });
 
 server.listen(3001, () => {

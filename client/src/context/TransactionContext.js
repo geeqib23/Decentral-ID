@@ -2,7 +2,9 @@ import React, { useDebugValue, useEffect, useState } from "react";
 import { ethers } from "ethers";
 
 import { contractABI, contractAddress } from "../utils/constants";
+import { socket } from '../socket';
 import { Navigate, useNavigate } from "react-router";
+import * as API from "../api/index";
 
 export const TransactionContext = React.createContext();
 
@@ -23,6 +25,22 @@ export const TransactionsProvider = ({ children }) => {
   const navigate = useNavigate();
   const [userVReqList,setUserVReqList] = useState([]);
   const [verifierVReqList,setVerifierVReqList] = useState([]);
+  const [isAdmin,setIsAdmin] = useState();
+
+  useEffect(() => {
+    socket.connect();
+    if (currentAccount !== "")
+      socket.emit("ADDR", currentAccount);
+  
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (currentAccount !== "")
+      socket.emit("ADDR", currentAccount);
+  }, [currentAccount]);
 
   const submitDocument = async (
     verifier,
@@ -38,10 +56,10 @@ export const TransactionsProvider = ({ children }) => {
       if (ethereum) {
         const transactionsContract = createEthereumContract();
         //convert
-        const verifierAddress = "0x27510d27b0B5c8c813A893726DcEAB6a933345da"
+        // const verifierAddress = "0x27510d27b0B5c8c813A893726DcEAB6a933345da"
         const isOver18 = 1
         const isCollegeStudent = -1
-        const res = await transactionsContract.addVReq(verifierAddress,cid,name,sex,dob,mobile,email,college,isOver18,isCollegeStudent);
+        const res = await transactionsContract.addVReq(verifier,cid,name,sex,dob,mobile,email,college,isOver18,isCollegeStudent);
 
         console.log(res);
 
@@ -95,7 +113,7 @@ export const TransactionsProvider = ({ children }) => {
   useEffect(() => {
     window.ethereum.on('accountsChanged', accounts => {
       if (accounts.length)
-        setCurrentAccount(accounts[0])
+        setCurrentAccount(accounts[0]);
       else
         setCurrentAccount("");
     });
@@ -130,6 +148,13 @@ export const TransactionsProvider = ({ children }) => {
       if (!ethereum) return alert("Please install MetaMask.");
 
       const accounts = await ethereum.request({ method: "eth_requestAccounts", });
+      API.login(currentAccount).then((res) => {
+        console.log(res.data.isVerifier)
+            if (res.data.isVerifier) 
+              setIsAdmin(true)
+              else 
+              setIsAdmin(false)
+          });
       console.log(accounts);  
       setCurrentAccount(accounts[0]);
     } catch (error) {
@@ -146,6 +171,7 @@ export const TransactionsProvider = ({ children }) => {
 	return (
     <TransactionContext.Provider
       value={{
+        checkIfWalletIsConnect,
         connectWallet,
         currentAccount,
         isLoading,

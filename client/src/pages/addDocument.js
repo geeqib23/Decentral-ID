@@ -4,6 +4,7 @@ import { TransactionContext } from "../context/TransactionContext";
 import * as API from "../api/index";
 import Web3 from 'web3';
 import { ethers } from "ethers";
+import Nav from "../components/nav";
 
 const AddDocument = () => {
 	const { submitDocument } = useContext(TransactionContext)
@@ -165,23 +166,7 @@ const AddDocument = () => {
 
 	return (
 		<div className='w-full h-full overflow-x-hidden'>
-			<div className='w-full p-10 flex justify-between'>
-				<h1 className='text-3xl font-bold'>Project Name</h1>
-				<div className='flex space-x-5'>
-					<a
-						href='/home'
-						className='p-3 bg-blue-300 hover:bg-blue-500 rounded-md'
-					>
-						Add Verification Request
-					</a>
-					<a
-						href='/addDocument'
-						className='p-3 bg-blue-300 hover:bg-blue-500 rounded-md'
-					>
-						My Requests Status
-					</a>
-				</div>
-			</div>
+			<Nav />
 
 			<div className='w-full flex flex-col items-center pb-20'>
 				<h1 className='text-3xl font-bold m-7'>Add Verification Request</h1>

@@ -9,7 +9,6 @@ import Access from './pages/access';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { TransactionsProvider } from './context/TransactionContext'
 import React from "react";
-import UserList from "./pages/UserList";
 
 
 const App = () => {
@@ -20,7 +19,6 @@ const App = () => {
 					<Route path='/home' element={<Home />} />
 					<Route path='/addDocument' element={<AddDocument />} />
 					<Route path='/admin' element={<Verifier />} />
-					<Route path='/userlist' exact element={<UserList />} />
 					<Route path='/access' exact element={<Access />} />
 					<Route path='/' exact element={<Login />} />
 				</Routes>

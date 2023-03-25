@@ -1,5 +1,4 @@
 pragma solidity ^0.5.0;
-pragma experimental ABIEncoderV2;
 
 contract SmartContract {
     address owner;
@@ -55,12 +54,64 @@ contract SmartContract {
         UserVReqs[msg.sender].push(VReqMeta(verifier, 0));
     }
 
-    function showVerifierVerificationReqList() public view returns (VReq[] memory) {  
-        return VerifierVReqs[msg.sender];
+    function showVerifierVerificationReqListLength() public view returns (uint) {  
+        return VerifierVReqs[msg.sender].length;
     }
 
-    function showUserVerificationReqList() public view returns (VReqMeta[] memory) {
-        return UserVReqs[msg.sender];
+    function showVerifierVerificationReqList(uint index) public view returns (
+        bytes32 cid,
+        address user,
+        int status,
+        uint metaIndex
+    ) {  
+        return (
+            VerifierVReqs[msg.sender][index].cid,
+            VerifierVReqs[msg.sender][index].user,
+            VerifierVReqs[msg.sender][index].status,
+            VerifierVReqs[msg.sender][index].metaIndex
+        );
+    }
+
+    function showVerifierVerificationReqScopeList(uint index) public view returns (
+        string memory name,
+        string memory sex,
+        string memory dob,
+        uint mobile,
+        string memory email,
+        string memory college
+    ) {
+        return (
+            VerifierVReqs[msg.sender][index].scopes.name,
+            VerifierVReqs[msg.sender][index].scopes.sex,
+            VerifierVReqs[msg.sender][index].scopes.dob,
+            VerifierVReqs[msg.sender][index].scopes.mobile,
+            VerifierVReqs[msg.sender][index].scopes.email,
+            VerifierVReqs[msg.sender][index].scopes.college
+        );
+    }
+
+    function showVerifierVerificationReqScopeBoolsList(uint index) public view returns (
+        int isOver18,
+        int isCollegeStudent
+    ) {
+        return (
+            VerifierVReqs[msg.sender][index].scopes.isOver18,
+            VerifierVReqs[msg.sender][index].scopes.isCollegeStudent
+        );
+    }
+
+    function showUserVerificationReqListLength() public view returns (uint) {
+        return UserVReqs[msg.sender].length;
+    }
+
+    function showUserVerificationReqList(uint index) public view returns (
+        address verifier,
+        int status
+    ) {
+        return (
+            UserVReqs[msg.sender][index].verifier,
+            UserVReqs[msg.sender][index].status
+        );
     }
 
     function verifyReq(address user, uint index, bool decision) public {
@@ -100,8 +151,26 @@ contract SmartContract {
         }
     }
 
-    function showUserInfo() public view returns (Scopes memory) {
-        return UserInfo[msg.sender];
+    function showUserInfo() public view returns (
+        string memory name,
+        string memory sex,
+        string memory dob,
+        uint mobile,
+        string memory email,
+        string memory college,
+        int isOver18,
+        int isCollegeStudent
+    ) {
+        return (
+            UserInfo[msg.sender].name,
+            UserInfo[msg.sender].sex,
+            UserInfo[msg.sender].dob,
+            UserInfo[msg.sender].mobile,
+            UserInfo[msg.sender].email,
+            UserInfo[msg.sender].college,
+            UserInfo[msg.sender].isOver18,
+            UserInfo[msg.sender].isCollegeStudent
+        );
     }
 
     function giveAccess(
@@ -165,7 +234,31 @@ contract SmartContract {
         }
     }
 
-    function showUserInfoByOrg(address user) public view returns (Scopes memory) {
-        return UserOrgAccess[user][msg.sender];
+    function showUserInfoByOrg(address user) public view returns (
+        string memory name,
+        string memory sex,
+        string memory dob,
+        uint mobile,
+        string memory email,
+        string memory college
+    ) {
+        return (
+            UserOrgAccess[user][msg.sender].name,
+            UserOrgAccess[user][msg.sender].sex,
+            UserOrgAccess[user][msg.sender].dob,
+            UserOrgAccess[user][msg.sender].mobile,
+            UserOrgAccess[user][msg.sender].email,
+            UserOrgAccess[user][msg.sender].college
+        );
+    }
+
+    function showUserInfoBoolsByOrg(address user) public view returns (
+        int isOver18,
+        int isCollegeStudent
+    ) {
+        return (
+            UserOrgAccess[user][msg.sender].isOver18,
+            UserOrgAccess[user][msg.sender].isCollegeStudent
+        );
     }
 }
