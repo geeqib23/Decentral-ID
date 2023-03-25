@@ -38,10 +38,10 @@ export const TransactionsProvider = ({ children }) => {
       if (ethereum) {
         const transactionsContract = createEthereumContract();
         //convert
-        const verifierAddress = "0x27510d27b0B5c8c813A893726DcEAB6a933345da"
+        // const verifierAddress = "0x27510d27b0B5c8c813A893726DcEAB6a933345da"
         const isOver18 = 1
         const isCollegeStudent = -1
-        const res = await transactionsContract.addVReq(verifierAddress,cid,name,sex,dob,mobile,email,college,isOver18,isCollegeStudent);
+        const res = await transactionsContract.addVReq(verifier,cid,name,sex,dob,mobile,email,college,isOver18,isCollegeStudent);
 
         console.log(res);
 
