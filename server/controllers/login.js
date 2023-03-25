@@ -5,9 +5,6 @@ config({ path: ".env" });
 
 export const login = async (req, res) => {
   try {
-    // let hashes = process.env.hashes.split(",");
-    // console.log(req.body);
-
     const { hash_id } = req.body;
 
     if (JSON.stringify(req.body) == "{}" || hash_id === undefined) {

@@ -33,6 +33,10 @@ export const TransactionsProvider = ({ children }) => {
     }
   };
 
+  useEffect(() => {
+    window.ethereum.on('accountsChanged', accounts => setCurrentAccount(accounts[0]));
+  }, []);
+
 	return (
     <TransactionContext.Provider
       value={{
