@@ -93,6 +93,41 @@ export const TransactionsProvider = ({ children }) => {
       console.log(error);
     }
   }
+
+  const giveAccess = async (
+    org,
+    callback,
+    name,
+    sex,
+    dob,
+    mobile,
+    email,
+    college,
+    isOver18,
+    isCollegeStudent
+  ) => {
+    try {
+      if (ethereum) {
+        const transactionsContract = createEthereumContract();
+
+        await transactionsContract.giveAccess(
+          org,
+          name,
+          sex,
+          dob,
+          mobile,
+          email,
+          college,
+          isOver18,
+          isCollegeStudent
+        );
+      } else {
+        console.log("Ethereum is not present");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
   
   useEffect(() => {
     window.ethereum.on('accountsChanged', accounts => {
@@ -165,7 +200,8 @@ export const TransactionsProvider = ({ children }) => {
         loadVerifierList,
         userVReqList,
         verifierVReqList,
-        submitDocument
+        submitDocument,
+        giveAccess
       }}
     >
       {children}
