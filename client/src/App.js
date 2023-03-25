@@ -7,6 +7,7 @@ import Login from './pages/login'
 import Home from './pages/home'
 import AddCard from './pages/addCard'
 import 'atropos/css'
+import AddData from './pages/addData'
 
 const router = createBrowserRouter([
 	{
@@ -18,8 +19,12 @@ const router = createBrowserRouter([
 		element: <Login />,
 	},
 	{
-		path: '/add/card',
+		path: '/addCard',
 		element: <AddCard />
+	},
+	{
+		path: '/addData',
+		element: <AddData />
 	}
 ])
 
