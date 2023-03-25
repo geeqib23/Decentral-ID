@@ -1,7 +1,7 @@
-import "./App.css";
-import Nav from "./components/nav";
-import Login from "./pages/login";
-import Home from "./pages/home";
+import './App.css'
+import Nav from './components/nav'
+import Login from './pages/login'
+import Home from './pages/home'
 import AddDocument from './pages/addDocument'
 import Verifier from './pages/verifier'
 
@@ -12,10 +12,9 @@ import UserList from "./pages/UserList";
 
 
 const App = () => {
-  return (
+	return (
 		<BrowserRouter>
 			<TransactionsProvider>
-				{window.location.pathname === '/' ? <></> : <Nav />}
 				<Routes>
 					<Route path='/home' element={<Home />} />
 					<Route path='/addDocument' element={<AddDocument />} />

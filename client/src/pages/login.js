@@ -3,6 +3,13 @@ import { TransactionContext } from "../context/TransactionContext";
 import { Navigate, useNavigate} from "react-router-dom";
 import * as API from "../api/index";
 
+function Wallet(props) {
+  return (
+    <svg className="ml-5" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32" {...props}><path fill="currentColor" d="M22 17h2v2h-2z"></path><path fill="currentColor" d="M28 8H4V5h22V3H4a2 2 0 0 0-2 2v21a2 2 0 0 0 2 2h24a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2ZM4 26V10h24v3h-8a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h8v3Zm24-11v6h-8v-6Z"></path></svg>
+  )
+}
+
+
 const Login = () => {
   const { connectWallet, currentAccount } = useContext(TransactionContext);
 //   const [redirectState, setRedirectState] = useState(0);
@@ -21,27 +28,11 @@ const Login = () => {
   }, [currentAccount]);
 
   return (
-		<div
-			className='flex w-full h-full justify-center items-center bg-cover bg-no-repeat'
-			style={{
-				backgroundImage:
-					'url("https://images.unsplash.com/photo-1568607689150-17e625c1586e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80")',
-			}}
-		>
-			<div className='w-1/4 h-3/5 bg-white/0.5 drop-shadow-md rounded-lg flex flex-col items-center p-5 backdrop-blur-2xl'>
-				{/* {redirectState === 1 && <Navigate to="/admin" />}
-        {redirectState === 2 && <Navigate to="/addDocument" />} */}
-				<div className='font-bold text-2xl'>Login</div>
-				<div className='w-full h-full flex justify-center items-center'>
-					<div
-						onClick={connectWallet}
-						className='font-semibold p-3 bg-cyan-700 rounded-md text-white border-2 border-cyan-900 drop-shadow-lg hover:drop-shadow-xl hover:scale-105 transition-all cursor-pointer'
-					>
-						{'Login with <project-name>'}
-					</div>
-				</div>
-			</div>
-		</div>
+    <div className="w-full h-full flex flex-col justify-center items-center">
+      <h1 className="font-extrabold text-5xl mb-3">{"<Project Name>"}</h1>
+      <h3 className="italic text-2xl mb-7">{"<KYC Made Simple"}</h3>
+      <button onClick={connectWallet} className="p-3 bg-blue-300 rounded-md flex items-center justify-center"> Connect Wallet <Wallet /></button>
+    </div>
 	)
 };
 
