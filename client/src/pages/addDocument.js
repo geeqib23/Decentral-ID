@@ -1,6 +1,21 @@
-import { useState } from 'react'
+import React, { useState } from "react";
+import { create  } from "ipfs-http-client";
 
 const AddDocument = () => {
+	const projectId = '2NTEjHeG4NfpOuXQtsMzDCN7aVy';
+	const projectSecretKey = '9ac5a480614ba7885aabc99c9c3d45f4';
+	const authorization = "Basic " + window.btoa(projectId + ":" + projectSecretKey);
+
+    const ipfs = create({
+		url: "https://ipfs.infura.io:5001/api/v0",
+		headers:{
+			authorization
+		}
+	})
+
+	const initialState = { name: '', dob: '', mobile: '', sex: '', college: '', email: '', verifier: '', cid: '' }
+
+	const [formData, setFormData] = useState(initialState)
 	const [application, setApplication] = useState('Select')
 	const [document, setDocument] = useState('Select')
 
@@ -31,13 +46,40 @@ const AddDocument = () => {
 		'12th Mark sheet': ['CBSE', 'ICSE', 'State Board'],
 		'College Result Transcript': ['MNNIT A', 'NITT', 'NITK'],
 	}
+	
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		
+		const form = e.target;
+		const docs = form[8].files;
+
+		if (!docs || docs.length === 0) {
+			return alert("No files selected");
+		}
+
+		const doc = docs[0];
+		const result = await ipfs.add(doc);
+		setFormData({ ...formData, cid: result.path });
+
+		const { name, dob, mobile, sex, college, email, verifier, cid } = formData;
+
+		console.log(formData)
+		if (!name || !dob || !mobile || !sex || !college || !email || !verifier  || !cid) return;
+	
+		console.log('TODO SOLIDITY')
+	};
+
+	const handleChange = (e) => {
+		setFormData({ ...formData, [e.target.name]: e.target.value });
+		console.log(formData)
+	}
 
 	return (
 		<div className='w-full h-full flex flex-col justify-center items-center pt-[400px] overflow-x-hidden'>
 			<div className='w-2/4 flex flex-col justify-center items-center bg-gray-50 p-4 rounded-lg'>
 				<h1 className='text-4xl mb-10'>Add Verification Request</h1>
 
-				<form class='w-full max-w-lg'>
+				<form class='w-full max-w-lg' onSubmit={handleSubmit}>
 					<div class='flex flex-wrap -mx-3 mb-4'>
 						<div class='w-full md:w-full px-3 mb-6 md:mb-0'>
 							<label
@@ -51,6 +93,8 @@ const AddDocument = () => {
 								id='grid-first-name'
 								type='text'
 								placeholder='Jane'
+								name="name"
+								onChange={handleChange}
 							/>
 						</div>
 					</div>
@@ -66,11 +110,13 @@ const AddDocument = () => {
 							<input
 								class='appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white'
 								id='grid-first-name'
-								type='text'
+								type='date'
 								placeholder='07'
+								name='dob'
+								onChange={handleChange}
 							/>
 						</div>
-						<div class='w-full md:w-1/3 px-3'>
+						{/* <div class='w-full md:w-1/3 px-3'>
 							<label
 								class='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
 								for='grid-last-name'
@@ -82,6 +128,8 @@ const AddDocument = () => {
 								id='grid-last-name'
 								type='text'
 								placeholder='05'
+								name='mm'
+								onChange={handleDOB}
 							/>
 						</div>
 						<div class='w-full md:w-1/3 px-3'>
@@ -96,8 +144,10 @@ const AddDocument = () => {
 								id='grid-last-name'
 								type='text'
 								placeholder='1998'
+								name='yyyy'
+								onChange={handleDOB}
 							/>
-						</div>
+						</div> */}
 					</div>
 
 					<div class='flex flex-wrap -mx-3 mt-4'>
@@ -113,6 +163,8 @@ const AddDocument = () => {
 								id='grid-first-name'
 								type='text'
 								placeholder='Jane'
+								name='mobile'
+								onChange={handleChange}
 							/>
 						</div>
 						<div class='w-full md:w-1/2 px-3 mb-4 md:mb-0'>
@@ -126,11 +178,13 @@ const AddDocument = () => {
 								<select
 									class='block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
 									placeholder='gender'
+									name='sex'
+									onChange={handleChange}
 								>
-									<option>Male</option>
-									<option>Male</option>
-									<option>Female</option>
-									<option>Other</option>
+									<option defaultChecked hidden>Select</option> 
+									<option value='Male'>Male</option>
+									<option value='Female'>Female</option>
+									<option value='Other'>Other</option>
 								</select>
 								<div class='pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700'>
 									<svg
@@ -156,6 +210,8 @@ const AddDocument = () => {
 								id='grid-first-name'
 								type='phone'
 								placeholder='Jane'
+								name="college"
+								onChange={handleChange}
 							/>
 						</div>
 						<div class='w-full px-3 mt-4'>
@@ -170,6 +226,8 @@ const AddDocument = () => {
 								id='grid-first-name'
 								type='email'
 								placeholder='abc@gmail.com'
+								name="email"
+								onChange={handleChange}
 							/>
 						</div>
 					</div>
@@ -251,6 +309,7 @@ const AddDocument = () => {
 								id='grid-first-name'
 								type='file'
 								placeholder='Jane'
+								name="doc"
 							/>
 						</div>
 					</div>
@@ -266,11 +325,13 @@ const AddDocument = () => {
 							<div class='relative'>
 								<select
 									class='block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-									placeholder='gender'
+									placeholder='select'
+									name="verifier"
+									onChange={handleChange}
 								>
 									<option>Select</option>
 									{verifierMap[document].map((val) => (
-										<option>{val}</option>
+										<option value={val}>{val}</option>
 									))}
 								</select>
 								<div class='pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700'>
@@ -285,24 +346,24 @@ const AddDocument = () => {
 							</div>
 						</div>
 					</div>
+					<button type="submit" className='w-full h-7 bg-cyan-500 mt-4 text-white p-5 flex justify-center items-center rounded font-semibold'>
+						Add Document
+						<svg
+							xmlns='http://www.w3.org/2000/svg'
+							width='25'
+							height='25'
+							viewBox='0 0 24 24'
+						>
+							<path
+								fill='none'
+								stroke='currentColor'
+								stroke-width='2'
+								d='M6 12.4h12M12.6 7l5.4 5.4l-5.4 5.4'
+							/>
+						</svg>
+					</button>
 				</form>
 
-				<button className='w-full h-7 bg-cyan-500 mt-4 text-white p-5 flex justify-center items-center rounded font-semibold'>
-					Add Document
-					<svg
-						xmlns='http://www.w3.org/2000/svg'
-						width='25'
-						height='25'
-						viewBox='0 0 24 24'
-					>
-						<path
-							fill='none'
-							stroke='currentColor'
-							stroke-width='2'
-							d='M6 12.4h12M12.6 7l5.4 5.4l-5.4 5.4'
-						/>
-					</svg>
-				</button>
 			</div>
 		</div>
 	)
