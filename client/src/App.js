@@ -7,7 +7,6 @@ import Verifier from './pages/verifier'
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { TransactionsProvider } from './context/TransactionContext'
-
 import React from "react";
 
 
