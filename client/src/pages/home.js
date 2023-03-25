@@ -3,7 +3,7 @@ import { TransactionContext } from "../context/TransactionContext";
 import { Navigate, useNavigate} from "react-router-dom";
 import * as API from "../api/index";
 import { AiOutlineDoubleRight } from "react-icons/ai";
-import io from "socket.io-client";
+import { socket } from '../socket';
 
 const Home = () => {
   const [driving, setDriving] = useState(false);
@@ -13,6 +13,14 @@ const Home = () => {
 
   const { currentAccount } = useContext(TransactionContext);
 	const navigate = useNavigate();
+
+  useEffect(() => {
+    socket.connect();
+  
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     if (currentAccount != "") {
