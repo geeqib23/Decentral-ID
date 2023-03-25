@@ -15,7 +15,7 @@ const App = () => {
   return (
 		<BrowserRouter>
 			<TransactionsProvider>
-				<Nav />
+				{window.location.pathname === '/' ? <></> : <Nav />}
 				<Routes>
 					<Route path='/home' element={<Home />} />
 					<Route path='/addDocument' element={<AddDocument />} />
