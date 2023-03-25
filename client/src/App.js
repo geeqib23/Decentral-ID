@@ -14,11 +14,11 @@ const App = () => {
   return (
 		<BrowserRouter>
 			<TransactionsProvider>
-				<Nav />
+				{window.location.pathname === '/' ? <></> : <Nav />}
 				<Routes>
 					<Route path='/home' element={<Home />} />
 					<Route path='/addDocument' element={<AddDocument />} />
-					<Route path='/verifier' element={<Verifier />} />
+					<Route path='/admin' element={<Verifier />} />
 					<Route path='/' exact element={<Login />} />
 				</Routes>
 			</TransactionsProvider>
