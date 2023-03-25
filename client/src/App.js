@@ -8,6 +8,7 @@ import Verifier from './pages/verifier'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { TransactionsProvider } from './context/TransactionContext'
 import React from "react";
+import ReqDetails from './pages/ReqDetails'
 
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
 					<Route path='/addDocument' element={<AddDocument />} />
 					<Route path='/admin' element={<Verifier />} />
 					<Route path='/' exact element={<Login />} />
+					<Route path='/reqDetails' element={<ReqDetails />} />
 				</Routes>
 			</TransactionsProvider>
 		</BrowserRouter>

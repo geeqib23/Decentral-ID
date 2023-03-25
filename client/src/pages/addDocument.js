@@ -5,11 +5,28 @@ import * as API from "../api/index";
 import Web3 from 'web3';
 import { ethers } from "ethers";
 import Nav from "../components/nav";
+import { projectId,projectSecretKey } from "../utils/constants";
 
 const AddDocument = () => {
+	const initialState = {
+		name: '',
+		dob: '',
+		mobile: 0,
+		sex: '',
+		college: '',
+		email: '',
+		verifier: '',
+		cid: '',
+	}
+	const [formData, setFormData] = useState(initialState)
+	const [application, setApplication] = useState('Select')
+	const [document, setDocument] = useState('Select')
+	const [isHash, setIsHash] = useState(0)
+
+	const [fields, setFields] = useState([])
+	const [selectedField, setSelectedField] = useState()
 	const { submitDocument } = useContext(TransactionContext)
-	const projectId = '2NTEjHeG4NfpOuXQtsMzDCN7aVy'
-	const projectSecretKey = '9ac5a480614ba7885aabc99c9c3d45f4'
+	
 	const authorization =
 		'Basic ' + window.btoa(projectId + ':' + projectSecretKey)
 
@@ -19,34 +36,46 @@ const AddDocument = () => {
 			authorization,
 		},
 	})
-
-	const initialState = {
-		name: '',
-		dob: '',
-		mobile: '',
-		sex: '',
-		college: '',
-		email: '',
-		verifier: '',
-		cid: '',
-	}
-
-	const [formData, setFormData] = useState(initialState)
-	const [application, setApplication] = useState('Select')
-	const [document, setDocument] = useState('Select')
-	const [isHash, setIsHash] = useState(0)
-
-	const [fields, setFields] = useState([])
-	const [selectedField, setSelectedField] = useState()
-
+	
 	useEffect(() => {
 		if (isHash == 1) {
 			const { name, dob, mobile, sex, college, email, verifier, cid } = formData
-			submitDocument(verifier, cid, name, sex, dob, mobile, email, college)
+			submitDocument(verifier,ethers.utils.hexZeroPad(Web3.utils.asciiToHex(cid), 32),name,sex,dob,parseInt(mobile),email,college);
 			console.log(formData)
 		}
 	}, [isHash])
 
+const getHash = (name) => {
+	try {
+		API.getVerifierHash(name).then((res) => {
+			console.log(res.data.result)
+			setFormData({ ...formData, verifier: res.data.result })
+			setIsHash(1)
+		})
+	} catch (error) {
+		console.log(error)
+	}
+}
+
+const handleSubmit = async (e) => {
+	e.preventDefault()
+	
+	const form = e.target
+	
+	if (!form || form.length === 0) {
+		return alert('No files selected')
+	}
+	const doc = form[2].files[0]
+	const result = await ipfs.add(doc)
+	setFormData((prev) => {
+		return { ...prev, cid: result.path };
+	})
+	getHash(formData.verifier)
+	
+	console.log(formData)
+}
+
+	
 	const documentMap = {
 		Select: [],
 		'Student Status': ['College ID', 'College Result Transcript'],
@@ -74,40 +103,7 @@ const AddDocument = () => {
 		'12th Mark sheet': ['CBSE', 'ICSE', 'State Board'],
 		'College Result Transcript': ['MNNIT A', 'NITT', 'NITK'],
 	}
-
-	const getHash = (name) => {
-		try {
-			API.getVerifierHash(name).then((res) => {
-				console.log(res.data.result)
-				setFormData({ ...formData, verifier: res.data.result })
-				setIsHash(1)
-			})
-		} catch (error) {
-			console.log(error)
-		}
-	}
-
-	const handleSubmit = async (e) => {
-		e.preventDefault()
-
-		const form = e.target
-		const docs = form[8].files
-
-		if (!docs || docs.length === 0) {
-			return alert('No files selected')
-		}
-
-		const doc = docs[0]
-		const result = await ipfs.add(doc)
-		setFormData((prev) => ({ ...prev.formData, cid: result.path }))
-		const { verifier } = formData
-		getHash(verifier)
-
-		console.log('TODO SOLIDITY')
-	}
-
 	const handleChange = (e) => {
-		console.log(e.target.name, e.target.value)
 		setFormData((prev) => {
 			return { ...prev, [e.target.name]: e.target.value }
 		})
@@ -217,6 +213,12 @@ const AddDocument = () => {
 						<select
 							class='block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
 							placeholder='type of document'
+							name="verifier"
+							onChange={(e)=>{
+								setFormData((prev)=>{
+									return {...prev,verifier:e.target.value}
+								})
+							}}
 						>
 							<option>Select</option>
 							{verifierMap[document].map((val) => (

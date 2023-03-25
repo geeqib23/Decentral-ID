@@ -26,6 +26,7 @@ export const TransactionsProvider = ({ children }) => {
   const [userVReqList,setUserVReqList] = useState([]);
   const [verifierVReqList,setVerifierVReqList] = useState([]);
   const [isAdmin,setIsAdmin] = useState();
+  const [callCompleted,setCallCompleted] = useState(false)
 
   useEffect(() => {
     socket.connect();
@@ -41,6 +42,17 @@ export const TransactionsProvider = ({ children }) => {
     if (currentAccount !== "")
       socket.emit("ADDR", currentAccount);
   }, [currentAccount]);
+
+  const getVerifierName = (hash_id) => {
+    try {
+      API.getVerifierName(hash_id).then((res) => {
+        console.log(res.data.result)
+        setCallCompleted(true)
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const submitDocument = async (
     verifier,
@@ -78,9 +90,20 @@ export const TransactionsProvider = ({ children }) => {
     try {
       if (ethereum) {
         const transactionsContract = createEthereumContract();
-
-        const userList = await transactionsContract.showUserVerificationReqList();
-
+        const userList = [];
+        const length = await transactionsContract.showUserVerificationReqListLength();
+        console.log(length)
+        let i = 0;
+        while(i<length){
+          const obj = {};
+          const res = await transactionsContract.showUserVerificationReqList(i);
+          console.log(res[0]);
+          // obj.verifier = getVerifierName(res[0])
+          obj.verifier = res[0]
+          obj.status = res[1].toNumber()
+          userList.push(obj)
+          i++;
+        }
         console.log(userList);
 
         setUserVReqList(userList);
@@ -155,7 +178,7 @@ export const TransactionsProvider = ({ children }) => {
               else 
               setIsAdmin(false)
           });
-      console.log(accounts);  
+      // console.log(accounts);  
       setCurrentAccount(accounts[0]);
     } catch (error) {
       console.log(error);

@@ -39,16 +39,19 @@ const Home = () => {
 								Id
 							</th>
 							<th scope='col' class='text-sm font-medium px-6 py-4 text-left'>
-								Name
+								Verifier
 							</th>
 							<th scope='col' class='text-sm font-medium px-6 py-4 text-left'>
-								Verified
+								Status
+							</th>
+							<th scope='col' class='text-sm font-medium px-6 py-4 text-left'>
+								
 							</th>
 						</tr>
 					</thead>
 
 					<tbody>
-              {/* {userVReqList.map(({ verifier, status }, index) => (
+              {userVReqList.map(({ verifier, status }, index) => (
                 <tr class='bg-gray-100 border-b'>
                   <td class='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
                     {index}
@@ -57,10 +60,22 @@ const Home = () => {
                     {verifier}
                   </td>
                   <td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
-                    {status}
+                    {status == 0 && "PROCESSING"}
+                    {status == 1 && "ACCEPTED"}
+                    {status == -1 && "REJECTED"}
                   </td>
+							    <td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
+                    <a
+                    onClick = {() => {
+                      navigate(`/reqDetails?index=${index}`)
+                    }}
+						        className='p-3 bg-blue-300 hover:bg-blue-500 rounded-md'
+					          >
+                      View
+					          </a>
+							    </td>
                 </tr>
-              ))} */}
+              ))}
 
 						<tr class='bg-white border-b'>
 							<td class='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
@@ -72,11 +87,14 @@ const Home = () => {
 							<td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
 								Dillan
 							</td>
+							<td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
+								View
+							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
-		</div>
+    </div>
 	)
 }
 
