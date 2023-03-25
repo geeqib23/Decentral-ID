@@ -8,18 +8,20 @@ import Verifier from './pages/verifier'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { TransactionsProvider } from './context/TransactionContext'
 import React from "react";
+import UserList from "./pages/UserList";
 
 
 const App = () => {
   return (
 		<BrowserRouter>
 			<TransactionsProvider>
-				<Nav />
+				{window.location.pathname === '/' ? <></> : <Nav />}
 				<Routes>
 					<Route path='/home' element={<Home />} />
 					<Route path='/addDocument' element={<AddDocument />} />
-					<Route path='/verifier' element={<Verifier />} />
+					<Route path='/admin' element={<Verifier />} />
 					<Route path='/' exact element={<Login />} />
+					<Route path='/userlist' exact element={<UserList />} />
 				</Routes>
 			</TransactionsProvider>
 		</BrowserRouter>
