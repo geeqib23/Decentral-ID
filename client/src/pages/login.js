@@ -13,7 +13,7 @@ const Login = () => {
         if (res.data.isAdmin) 
           navigate('/admin')
         else 
-          navigate('/addDocument')
+          navigate('/home')
       });
     }
   }, [currentAccount]);

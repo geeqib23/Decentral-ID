@@ -8,9 +8,9 @@ const Home = () => {
   const [status, setStatus] = useState(false);
 
   return (
-    <div className="flex justify-center pt-5 space-x-5">
+    <div className="flex justify-center pt-20 space-x-5">
       <div className="w-80 border flex flex-col items-center rounded-lg border-gray-400">
-        <div className="bg-cyan-500 w-full p-5 text-white font-bold">
+        <div className="bg-cyan-500 w-full p-5 text-white font-bold rounded-t-lg">
           User menu
         </div>
         <div className="w-full p-5 flex flex-col items-center transition-all">
@@ -33,7 +33,7 @@ const Home = () => {
         </div>
       </div>
       <div className="w-80 border flex flex-col items-center rounded-lg border-gray-400">
-        <div className="bg-cyan-500 w-full p-5 text-white font-bold">
+        <div className="bg-cyan-500 w-full p-5 text-white font-bold rounded-t-lg">
           Institute Menu
         </div>
         <div className="w-full p-5 flex flex-col items-center">
