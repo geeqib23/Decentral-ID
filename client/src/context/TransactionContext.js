@@ -25,16 +25,14 @@ export const TransactionsProvider = ({ children }) => {
   const [userVReqList,setUserVReqList] = useState([]);
   const [verifierVReqList,setVerifierVReqList] = useState([]);
   const [isAdmin,setIsAdmin] = useState();
-  const [callCompleted,setCallCompleted] = useState(false)
 
-  const getVerifierName = (hash_id) => {
+  const getVerifierName = async (hash_id) => {
     try {
-      API.getVerifierName(hash_id).then((res) => {
-        console.log(res.data.result)
-        setCallCompleted(true)
-      })
+      const res = await API.getVerifierName(hash_id)
+      return res.data.result;
     } catch (error) {
       console.log(error)
+      return "";
     }
   }
 
@@ -82,7 +80,7 @@ export const TransactionsProvider = ({ children }) => {
           const obj = {};
           const res = await transactionsContract.showUserVerificationReqList(i);
           console.log(res[0].toLowerCase());
-          obj.verifier = getVerifierName(res[0].toLowerCase())
+          obj.verifier = await getVerifierName(res[0].toLowerCase())
           // obj.verifier = res[0]
           obj.status = res[1].toNumber()
           userList.push(obj)
@@ -242,7 +240,8 @@ export const TransactionsProvider = ({ children }) => {
         userVReqList,
         verifierVReqList,
         submitDocument,
-        giveAccess
+        giveAccess,
+        isAdmin
       }}
     >
       {children}

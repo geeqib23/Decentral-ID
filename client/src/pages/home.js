@@ -60,7 +60,7 @@ const Home = () => {
 
 					<tbody>
               {userVReqList.map(({ verifier, status }, index) => (
-                <tr class='bg-gray-100 border-b'>
+                <tr class='bg-gray-100 border-b' key={index}>
                   <td class='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
                     {index}
                   </td>
@@ -75,18 +75,6 @@ const Home = () => {
 							   
                 </tr>
               ))}
-
-						<tr class='bg-white border-b'>
-							<td class='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
-								4
-							</td>
-							<td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
-								Bob
-							</td>
-							<td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
-								Dillan
-							</td>
-						</tr>
 					</tbody>
 				</table>
 			</div>
