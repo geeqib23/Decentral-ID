@@ -13,16 +13,27 @@ const Home = () => {
   },[])
 
 
-  useEffect(() => {
-    console.log("SS")
-      if (currentAccount != "") {
-      console.log(currentAccount)
-      if(isAdmin)
-            navigate('/admin')
-          else 
-            navigate('/home')
-        };
-    }, [currentAccount]);
+  // useEffect(() => {
+  //   if (isAdmin !== undefined) {
+  //       console.log("change")
+  //       // console.log(currentAccount)
+  //       console.log(isAdmin)
+  //       if(isA)
+  //           navigate('/admin')
+  //     };
+  //   }, [isAdmin]);
+
+    useEffect(() => {
+      console.log("SS")
+        if (currentAccount != undefined && isAdmin != undefined) {
+        console.log(currentAccount,isAdmin)
+        if(isAdmin)
+              navigate('/admin')
+            else 
+              navigate('/home')
+          };
+      }, [currentAccount]);
+    
   
 
 	return (
@@ -44,9 +55,6 @@ const Home = () => {
 							<th scope='col' class='text-sm font-medium px-6 py-4 text-left'>
 								Status
 							</th>
-							<th scope='col' class='text-sm font-medium px-6 py-4 text-left'>
-								
-							</th>
 						</tr>
 					</thead>
 
@@ -64,16 +72,7 @@ const Home = () => {
                     {status == 1 && "ACCEPTED"}
                     {status == -1 && "REJECTED"}
                   </td>
-							    <td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
-                    <a
-                    onClick = {() => {
-                      navigate(`/reqDetails?index=${index}`)
-                    }}
-						        className='p-3 bg-blue-300 hover:bg-blue-500 rounded-md'
-					          >
-                      View
-					          </a>
-							    </td>
+							   
                 </tr>
               ))}
 
@@ -86,9 +85,6 @@ const Home = () => {
 							</td>
 							<td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
 								Dillan
-							</td>
-							<td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
-								View
 							</td>
 						</tr>
 					</tbody>

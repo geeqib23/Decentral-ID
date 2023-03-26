@@ -12,7 +12,7 @@ export default function Nav() {
 				{pathname != '/admin' && ( 
 				<div className='flex space-x-5'>
 					<a
-						href='/addDocument'
+						href='/home/addDocument'
 						className='p-3 bg-blue-300 hover:bg-blue-500 rounded-md'
 					>
 						Add Verification Request

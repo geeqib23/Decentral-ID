@@ -4,8 +4,12 @@ import { Navigate, useNavigate} from "react-router-dom";
 import Nav from "../components/nav";
 
 const Verifier = () => { 
-	const { currentAccount,isAdmin } = useContext(TransactionContext);
+	const { currentAccount,isAdmin, verifierVReqList, loadVerifierList } = useContext(TransactionContext);
 	const navigate = useNavigate();
+
+	useEffect(() =>{
+		loadVerifierList()
+	})
 
   useEffect(() => {
 	console.log("SS")
@@ -45,6 +49,8 @@ const Verifier = () => {
 							>
 								Verified
 							</th>
+							<td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
+							</td>
 						</tr>
 					</thead>
 					<tbody>
@@ -58,6 +64,16 @@ const Verifier = () => {
 							<td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
 								Otto
 							</td>
+							<td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
+                    		<a
+                    		// onClick = {() => {
+                      		// navigate(`/admin/reqDetails/:${index}`)
+                    		// }}
+							className='p-3 bg-blue-300 hover:bg-blue-500 rounded-md'
+					    	>
+                      			View
+					    	</a>
+							    </td>
 						</tr>
 						<tr class='bg-white border-b'>
 							<td class='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
