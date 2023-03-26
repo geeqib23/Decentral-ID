@@ -37,10 +37,11 @@ Just to prove their identity, users are forced to give away their personal docum
 
 
 ## Demo
-![Welcome](./demo/welcome.png)
-![Home](./demo/home.png)
-![Bounty](./demo/bounty.png)
-![Admin](./demo/admin.png)
+![Welcome](./demo/1.jpeg)
+![Home](./demo/2.jpeg)
+![Bounty](./demo/3.jpeg)
+![Admin](./demo/4.jpeg)
+![wdw](./demo/4.jpeg)
 
 ## Challenges We Faced
 1. Learning Solidity and IPFS : All of us were not too much familiar with solidity and we've learned it on the go as we made this project.
