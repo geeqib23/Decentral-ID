@@ -8,8 +8,8 @@ const Verifier = () => {
 	const navigate = useNavigate();
 
 	useEffect(() =>{
-		loadVerifierList()
-	})
+		loadVerifierList();
+	}, []);
 
   useEffect(() => {
 	console.log("SS")
@@ -23,11 +23,11 @@ const Verifier = () => {
   }, [currentAccount]);
 
     return (
-		<div className='w-full h-full overflow-x-hidden justify-center items-center'>
+		<div className='items-center justify-center w-full h-full overflow-x-hidden'>
 				<Nav />
-				<div className='w-full h-full flex flex-col items-center'>
+				<div className='flex flex-col items-center w-full h-full'>
 
-				<h1 className="text-4xl pb-10">Verification Panel</h1>
+				<h1 className="pb-10 text-4xl">Verification Panel</h1>
 				<table class='w-2/4 rounded-lg border-2 border-gray'>
 					<thead class='bg-cyan-500'>
 						<tr>
@@ -41,7 +41,7 @@ const Verifier = () => {
 								scope='col'
 								class='text-sm font-medium text-white px-6 py-4 text-left'
 							>
-								Name
+								Address
 							</th>
 							<th
 								scope='col'
@@ -54,60 +54,31 @@ const Verifier = () => {
 						</tr>
 					</thead>
 					<tbody>
-						<tr class='bg-gray-100 border-b'>
-							<td class='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
-								1
-							</td>
-							<td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
-								Mark
-							</td>
-							<td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
-								Otto
-							</td>
-							<td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
-                    		<a
-                    		// onClick = {() => {
-                      		// navigate(`/admin/reqDetails/:${index}`)
-                    		// }}
-							className='p-3 bg-blue-300 hover:bg-blue-500 rounded-md'
-					    	>
-                      			View
-					    	</a>
+						{verifierVReqList.map(({user, status}, index) => (
+							<tr class='bg-gray-100 border-b'>
+								<td class='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
+									{index+1}
+								</td>
+								<td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
+									{user}
+								</td>
+								<td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
+									{status === 0 && "PROCESSING"}
+									{status === 1 && "ACCEPTED"}
+									{status === -1 && "REJECTED"}
+								</td>
+								<td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
+								{status === 0 && <a
+									onClick = {() => {
+									navigate(`/admin/${index+1}`)
+								}}
+								className='p-3 bg-blue-300 rounded-md hover:bg-blue-500'
+								>
+									View
+								</a>}
 							    </td>
-						</tr>
-						<tr class='bg-white border-b'>
-							<td class='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
-								2
-							</td>
-							<td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
-								Jacob
-							</td>
-							<td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
-								Dillan
-							</td>
-						</tr>
-						<tr class='bg-gray-100 border-b'>
-							<td class='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
-								3
-							</td>
-							<td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
-								Mark
-							</td>
-							<td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
-								Twen
-							</td>
-						</tr>
-						<tr class='bg-white border-b'>
-							<td class='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
-								4
-							</td>
-							<td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
-								Bob
-							</td>
-							<td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
-								Dillan
-							</td>
-						</tr>
+							</tr>
+						))}
 					</tbody>
 				</table>
 				</div>

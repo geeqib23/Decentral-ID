@@ -51,8 +51,10 @@ export const TransactionsProvider = ({ children }) => {
         const transactionsContract = createEthereumContract();
         //convert
         // const verifierAddress = "0x27510d27b0B5c8c813A893726DcEAB6a933345da"
-        const isOver18 = 1
-        const isCollegeStudent = -1
+        let isOver18 = 0;
+        if (dob !== "" && new Date(dob).getFullYear() <= new Date().getFullYear()-18)
+          isOver18 = 1;
+        const isCollegeStudent = college === ""? 0 : 1;
         const res = await transactionsContract.addVReq(verifier,cid,name,sex,dob,mobile,email,college,isOver18,isCollegeStudent);
 
         console.log(res);
@@ -98,32 +100,44 @@ export const TransactionsProvider = ({ children }) => {
   }
 
   const loadVerifierList = async () => {
-    // try {
-    //   if (ethereum) {
-    //     const transactionsContract = createEthereumContract();
-    //     const verifierList = [];
-    //     const length = await transactionsContract.showVerifierVerificationReqListLength();
-    //     console.log(length.toNumber())
-    //     let i = 0;
-    //     while(i<length){
-    //       const obj = {};
-    //       const res = await transactionsContract.showUserVerificationReqList(i);
-    //       console.log(res[0]);
-    //       // obj.verifier = getVerifierName(res[0])
-    //       obj.verifier = res[0]
-    //       obj.status = res[1].toNumber()
-    //       userList.push(obj)
-    //       i++;
-    //     }
-    //     console.log(userList);
+    try {
+      if (ethereum) {
+        const transactionsContract = createEthereumContract();
+        const userList = [];
+        const length = await transactionsContract.showVerifierVerificationReqListLength();
+        let i = 0;
+        while(i<length){
+          const obj = {};
+          let res = await transactionsContract.showVerifierVerificationReqList(i);
+          obj.cid = res.cid;
+          obj.metaIndex = res.metaIndex.toNumber();
+          obj.status = res.status.toNumber();
+          obj.user = res.user;
 
-    //     setUserVReqList(userList);
-    //   } else {
-    //     console.log("Ethereum is not present");
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
+          res = await transactionsContract.showVerifierVerificationReqScopeList(i);
+          obj.sex = res.sex;
+          obj.name = res.name;
+          obj.dob = res.dob;
+          obj.mobile = res.mobile.toNumber();
+          obj.email = res.email;
+          obj.college = res.college;
+
+          res = await transactionsContract.showVerifierVerificationReqScopeBoolsList(i);
+          obj.isOver18 = res.isOver18.toNumber();
+          obj.isCollegeStudent = res.isCollegeStudent.toNumber();
+          
+          userList.push(obj)
+          i++;
+        }
+        console.log(userList);
+
+        setVerifierVReqList(userList);
+      } else {
+        console.log("Ethereum is not present");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const giveAccess = async (
@@ -152,6 +166,28 @@ export const TransactionsProvider = ({ children }) => {
           college,
           isOver18,
           isCollegeStudent
+        );
+      } else {
+        console.log("Ethereum is not present");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const verify = async (
+    user,
+    metaIndex,
+    decision
+  ) => {
+    try {
+      if (ethereum) {
+        const transactionsContract = createEthereumContract();
+
+        await transactionsContract.verifyReq(
+          user,
+          metaIndex,
+          decision
         );
       } else {
         console.log("Ethereum is not present");
@@ -241,7 +277,8 @@ export const TransactionsProvider = ({ children }) => {
         verifierVReqList,
         submitDocument,
         giveAccess,
-        isAdmin
+        isAdmin,
+        verify
       }}
     >
       {children}
