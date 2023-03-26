@@ -97,9 +97,9 @@ export const TransactionsProvider = ({ children }) => {
         while(i<length){
           const obj = {};
           const res = await transactionsContract.showUserVerificationReqList(i);
-          console.log(res[0]);
-          // obj.verifier = getVerifierName(res[0])
-          obj.verifier = res[0]
+          console.log(res[0].toLowerCase());
+          obj.verifier = getVerifierName(res[0].toLowerCase())
+          // obj.verifier = res[0]
           obj.status = res[1].toNumber()
           userList.push(obj)
           i++;
@@ -116,22 +116,34 @@ export const TransactionsProvider = ({ children }) => {
   }
 
   const loadVerifierList = async () => {
-    try {
-      if (ethereum) {
-        const transactionsContract = createEthereumContract();
+    // try {
+    //   if (ethereum) {
+    //     const transactionsContract = createEthereumContract();
+    //     const verifierList = [];
+    //     const length = await transactionsContract.showVerifierVerificationReqListLength();
+    //     console.log(length.toNumber())
+    //     let i = 0;
+    //     while(i<length){
+    //       const obj = {};
+    //       const res = await transactionsContract.showUserVerificationReqList(i);
+    //       console.log(res[0]);
+    //       // obj.verifier = getVerifierName(res[0])
+    //       obj.verifier = res[0]
+    //       obj.status = res[1].toNumber()
+    //       userList.push(obj)
+    //       i++;
+    //     }
+    //     console.log(userList);
 
-        const verifierList = await transactionsContract.getVerifierVerificationReqList();
-
-        console.log(verifierList);
-
-        setUserVReqList(verifierList);
-      } else {
-        console.log("Ethereum is not present");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    //     setUserVReqList(userList);
+    //   } else {
+    //     console.log("Ethereum is not present");
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
   }
+
   
   useEffect(() => {
     window.ethereum.on('accountsChanged', accounts => {
@@ -170,14 +182,8 @@ export const TransactionsProvider = ({ children }) => {
     try {
       if (!ethereum) return alert("Please install MetaMask.");
 
-      const accounts = await ethereum.request({ method: "eth_requestAccounts", });
-      API.login(currentAccount).then((res) => {
-        console.log(res.data.isVerifier)
-            if (res.data.isVerifier) 
-              setIsAdmin(true)
-              else 
-              setIsAdmin(false)
-          });
+      const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+    
       // console.log(accounts);  
       setCurrentAccount(accounts[0]);
     } catch (error) {
@@ -190,6 +196,19 @@ export const TransactionsProvider = ({ children }) => {
   useEffect(() => {
     window.ethereum.on('accountsChanged', accounts => setCurrentAccount(accounts[0]));
   }, []);
+
+  useEffect(() => {
+    if(currentAccount){ 
+      API.login(currentAccount).then((res) => {
+        console.log("SS",currentAccount,res.data.isVerifier)
+        if (res.data.isVerifier) 
+          setIsAdmin(true)
+        else 
+          setIsAdmin(false)
+      });
+    }
+  }, [currentAccount]);
+
 
 	return (
     <TransactionContext.Provider
