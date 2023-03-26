@@ -7,10 +7,12 @@
 
 This project was developed by us, **Team ECMAniacs**, as a submission for [Hack36 6.0](https://www.hack36.com/)
 
+UPDATE - We went on to win 1st position in this hackathon, Hack36 :)
+
 
 ## Resources
 - [PPT](https://docs.google.com/presentation/d/1fDOJagdUc-62sfzt8al91WkodRhC2Zv7d_QZ0y-s-NQ/edit?usp=sharing)
-- [Video Demo](https://drive.google.com/drive/folders/15GYRUjB4FN7LFH64TiwSNT_KgzwiT2-G?usp=share_link)
+- [Video Demo](https://youtu.be/IBIq-D5_2K0)
 
 ## Team ECMAniacs
 - [Aqib Suhail](https://github.com/geeqib23)
