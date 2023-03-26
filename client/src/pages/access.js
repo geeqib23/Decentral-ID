@@ -3,12 +3,18 @@ import { TiTick } from 'react-icons/ti'
 import { RxCrossCircled } from 'react-icons/rx'
 import { useSearchParams } from 'react-router-dom'
 import { TransactionContext } from "../context/TransactionContext";
+import * as API from "../api/index";
 
 export default function Access() {
-	const { checkIfWalletIsConnect, giveAccess } = useContext(TransactionContext);
+	const [orgName, setOrgName] = useState('');
+	const { checkIfWalletIsConnect, giveAccess, currentAccount } = useContext(TransactionContext);
 
 	useEffect(() => {
 		checkIfWalletIsConnect();
+
+		API.getVerifierName(query.org).then((res) => {
+			setOrgName(res.data.result);
+		}).catch(err => console.log(err));
 	}, []);
 
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -28,7 +34,7 @@ export default function Access() {
 	const accept = async e => {
 		e.preventDefault();
 		
-		const transactionHash = giveAccess(
+		await giveAccess(
 			query.org,
 			query.callback,
 			query.name,
@@ -40,26 +46,26 @@ export default function Access() {
 			query.isOver18,
 			query.isCollegeStudent
 		);
-		await transactionHash.wait();
 		
-		const urlParams = new URLSearchParams(query.callback);
-		urlParams.set("status", "200");
-		window.location = urlParams.toString();
+		const url = new URL(query.callback);
+		url.searchParams.set("status", "200");
+		url.searchParams.set("user", currentAccount);
+		window.location.replace(url.href);
 	};
 
 	const reject = e => {
 		e.preventDefault();
 
-		const urlParams = new URLSearchParams(query.callback);
-		urlParams.set("status", "401");
-		window.location = urlParams.toString();
+		const url = new URL(query.callback);
+		url.searchParams.set("status", "401");
+		window.location.replace(url.href);
 	};
 
 	return (
 		<div className='flex flex-col items-center justify-center w-full h-full'>
 			<div className='h-[80%] w-[30%] flex flex-col justify-center items-center bg-gray-100 rounded-md'>
 				<h1 className='text-3xl font-bold m-7'>Approval request</h1>
-				<h3 className='m-3 text-2xl font-semibold'>Request from: {'Amazon'}</h3>
+				<h3 className='m-3 text-2xl font-semibold'>Request from: {orgName}</h3>
 
 				<div className='flex flex-col justify-start my-10 space-y-5 text-center w-60'>
 					<h1 className='underline'>Request For:</h1>

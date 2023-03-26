@@ -1,9 +1,10 @@
 import { Router} from 'express'
-import { addVerifier, getVerifierHash } from '../controllers/verifier.js'
+import { addVerifier, getVerifierHash, getVerifierName } from '../controllers/verifier.js'
 
 const verifierRouter = Router()
 
 verifierRouter.post('/addVerifier', addVerifier)
 verifierRouter.post('/getVerifierHash', getVerifierHash)
+verifierRouter.post('/getVerifierName', getVerifierName)
 
 export default verifierRouter

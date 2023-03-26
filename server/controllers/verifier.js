@@ -31,3 +31,19 @@ export const getVerifierHash = async (req,res) => {
         res.status(500).send('Something went wrong!');
     }
 }
+
+export const getVerifierName = async (req,res) => {
+    const { hash_id } = req.body;
+
+    try {
+        const verifier = await Verifier.findOne({ hash_id });
+        
+        if(!verifier) return res.status(400).send("Verifier doesn't exist!");
+    
+        const result = verifier.name;
+
+        res.status(200).send({ result });
+    } catch(error) {
+        res.status(500).send('Something went wrong!');
+    }
+}
