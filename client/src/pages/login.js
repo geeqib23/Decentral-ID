@@ -28,10 +28,10 @@ const Login = () => {
   }, [currentAccount]);
 
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center">
-      <h1 className="font-extrabold text-5xl mb-3">{"<Project Name>"}</h1>
-      <h3 className="italic text-2xl mb-7">{"<KYC Made Simple"}</h3>
-      <button onClick={connectWallet} className="p-3 bg-blue-300 rounded-md flex items-center justify-center"> Connect Wallet <Wallet /></button>
+    <div className="flex flex-col items-center justify-center w-full h-full">
+      <h1 className="mb-3 text-5xl font-extrabold">{"DecentralID"}</h1>
+      <h3 className="text-2xl italic mb-7">{"KYC Made Simple"}</h3>
+      <button onClick={connectWallet} className="flex items-center justify-center p-3 bg-blue-300 rounded-md"> Connect Wallet <Wallet /></button>
     </div>
 	)
 };
