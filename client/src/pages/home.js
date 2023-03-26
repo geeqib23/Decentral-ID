@@ -13,16 +13,27 @@ const Home = () => {
   },[])
 
 
-  useEffect(() => {
-    console.log("SS")
-      if (currentAccount != "") {
-      console.log(currentAccount)
-      if(isAdmin)
-            navigate('/admin')
-          else 
-            navigate('/home')
-        };
-    }, [currentAccount]);
+  // useEffect(() => {
+  //   if (isAdmin !== undefined) {
+  //       console.log("change")
+  //       // console.log(currentAccount)
+  //       console.log(isAdmin)
+  //       if(isA)
+  //           navigate('/admin')
+  //     };
+  //   }, [isAdmin]);
+
+    useEffect(() => {
+      console.log("SS")
+        if (currentAccount != undefined && isAdmin != undefined) {
+        console.log(currentAccount,isAdmin)
+        if(isAdmin)
+              navigate('/admin')
+            else 
+              navigate('/home')
+          };
+      }, [currentAccount]);
+    
   
 
 	return (
@@ -39,16 +50,16 @@ const Home = () => {
 								Id
 							</th>
 							<th scope='col' class='text-sm font-medium px-6 py-4 text-left'>
-								Name
+								Verifier
 							</th>
 							<th scope='col' class='text-sm font-medium px-6 py-4 text-left'>
-								Verified
+								Status
 							</th>
 						</tr>
 					</thead>
 
 					<tbody>
-              {/* {userVReqList.map(({ verifier, status }, index) => (
+              {userVReqList.map(({ verifier, status }, index) => (
                 <tr class='bg-gray-100 border-b'>
                   <td class='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
                     {index}
@@ -57,10 +68,13 @@ const Home = () => {
                     {verifier}
                   </td>
                   <td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
-                    {status}
+                    {status == 0 && "PROCESSING"}
+                    {status == 1 && "ACCEPTED"}
+                    {status == -1 && "REJECTED"}
                   </td>
+							   
                 </tr>
-              ))} */}
+              ))}
 
 						<tr class='bg-white border-b'>
 							<td class='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
@@ -76,7 +90,7 @@ const Home = () => {
 					</tbody>
 				</table>
 			</div>
-		</div>
+    </div>
 	)
 }
 

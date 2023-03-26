@@ -6,4 +6,4 @@ const API = axios.create({
 
 export const login = (walletHash) => API.post('/user/login', { hash_id: walletHash });
 export const getVerifierHash = (name) => API.post('/verifier/getVerifierHash', { name: name });
-export const getVerifierName = (hash_id) => API.post('/verifier/getVerifierName', { hash_id: hash_id });
+export const getVerifierName = (hash_id) => API.post('/verifier/getVerifierName', { hash_id : hash_id});

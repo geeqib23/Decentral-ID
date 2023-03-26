@@ -9,6 +9,7 @@ import Access from './pages/access';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { TransactionsProvider } from './context/TransactionContext'
 import React from "react";
+import ReqDetails from './pages/ReqDetails'
 
 
 const App = () => {
@@ -16,9 +17,10 @@ const App = () => {
 		<BrowserRouter>
 			<TransactionsProvider>
 				<Routes>
-					<Route path='/home' element={<Home />} />
-					<Route path='/addDocument' element={<AddDocument />} />
+					<Route path='/home' exact element={<Home />} />
+					<Route path='/home/addDocument' exact element={<AddDocument />} />
 					<Route path='/admin' element={<Verifier />} />
+					<Route path='/admin/:index' exact element={<ReqDetails />} />
 					<Route path='/access' exact element={<Access />} />
 					<Route path='/' exact element={<Login />} />
 				</Routes>
