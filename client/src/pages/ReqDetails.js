@@ -43,7 +43,7 @@ function ReqDetails() {
                 {vreq.isOver18 !== 0 && <h3>Is Over 18?: {vreq.isOver18}</h3>}
                 {vreq.mobile !== 0 && <h3>Mobile: {vreq.mobile}</h3>}
                 {vreq.sex !== "" && <h3>Sex: {vreq.sex}</h3>}
-                <Link to={`https://ecmaniacs-hack36.infura-ipfs.io/ipfs/${vreq.cid}`}>View File</Link>
+                <Link to={`https://ecmaniacs-hack36.infura-ipfs.io/ipfs/${vreq.cid}`} target="_blank">View File</Link>
             </div>
 
             <div className='flex space-x-5'>
