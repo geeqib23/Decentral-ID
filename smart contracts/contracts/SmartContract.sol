@@ -15,7 +15,7 @@ contract SmartContract {
     }
 
     struct VReq {
-        bytes32 cid;
+        string cid;
         address user;
         Scopes scopes;
         int status;
@@ -50,7 +50,7 @@ contract SmartContract {
 
     function addVReq(
         address verifier,
-        bytes32 cid,
+        string memory cid,
         string memory name,
         string memory sex,
         string memory dob,
@@ -69,7 +69,7 @@ contract SmartContract {
     }
 
     function showVerifierVerificationReqList(uint index) public view returns (
-        bytes32 cid,
+        string memory cid,
         address user,
         int status,
         uint metaIndex
