@@ -10,12 +10,11 @@ function ReqDetails() {
 
     let {index} = useParams();
     index--;
-    console.log(index)
     const [vreq, setVreq] = useState(null);
-    const { verifierVReqList, loadVerifierList, verify } = useContext(TransactionContext);
+    const { verifierVReqList, loadVerifierList, verify, currentAccount, checkIfWalletIsConnect } = useContext(TransactionContext);
     
     useEffect(() =>{
-        // checkIfWalletIsConnect();
+        checkIfWalletIsConnect();
         if (index >= verifierVReqList.length)
 		    loadVerifierList();
         else
@@ -48,15 +47,15 @@ function ReqDetails() {
             </div>
 
             <div className='flex space-x-5'>
-                <button className='flex items-center p-2 bg-red-300 rounded' onClick={() => {
-                    verify(vreq.user, vreq.metaIndex, false);
+                <button className='flex items-center p-2 bg-red-300 rounded' onClick={async () => {
+                    await verify(currentAccount, index, false);
                     navigate('/admin');
                 }}>
                     <RxCrossCircled className='mr-2' />
                     Reject
                 </button>
-                <button className='flex items-center p-2 rounded bg-lime-300' onClick={() => {
-                    verify(vreq.user, vreq.metaIndex, true);
+                <button className='flex items-center p-2 rounded bg-lime-300' onClick={async () => {
+                    await verify(currentAccount, index, true);
                     navigate('/admin');
                 }}>
                     <TiTick className='mr-2' /> Approve
