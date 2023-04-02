@@ -3,7 +3,6 @@ import { ethers } from "ethers";
 
 import { contractABI, contractAddress } from "../utils/constants";
 import { Navigate, useNavigate } from "react-router";
-import * as API from "../api/index";
 
 export const TransactionContext = React.createContext();
 

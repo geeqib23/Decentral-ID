@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { TransactionContext } from '../context/TransactionContext'
 import { useNavigate } from 'react-router-dom'
-import * as API from '../api/index'
 import Nav from '../components/nav'
 
 const Home = () => {
