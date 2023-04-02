@@ -12,7 +12,7 @@ UPDATE - We went on to win 1st position in this hackathon, Hack36 :)
 
 ## Resources
 - [PPT](https://docs.google.com/presentation/d/1fDOJagdUc-62sfzt8al91WkodRhC2Zv7d_QZ0y-s-NQ/edit?usp=sharing)
-- [Video Demo](https://youtu.be/IBIq-D5_2K0)
+- [Video Demo](https://youtu.be/zDhHoVL1Ed8)
 
 ## Team ECMAniacs
 - [Aqib Suhail](https://github.com/geeqib23)
