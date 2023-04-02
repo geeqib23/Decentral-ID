@@ -39,15 +39,14 @@ const AddDocument = () => {
 	useEffect(() => {
 		if (isHash == 1) {
 			const { name, dob, mobile, sex, college, email, verifier, cid } = formData
-			submitDocument(verifier,ethers.utils.hexZeroPad(Web3.utils.asciiToHex(cid), 32),name,sex,dob,parseInt(mobile),email,college);
-			console.log(formData)
+			submitDocument(verifier,cid,name,sex,dob,parseInt(mobile),email,college);
 		}
 	}, [isHash])
 
-const getHash = (name) => {
+const getHash = (cid, name) => {
 	try {
 		getVerifierAddress(name).then(address => {
-			setFormData({ ...formData, verifier: address });
+			setFormData({ ...formData, cid, verifier: address });
 			setIsHash(1);
 		});
 	} catch (error) {
@@ -65,12 +64,7 @@ const handleSubmit = async (e) => {
 	}
 	const doc = form[2].files[0]
 	const result = await ipfs.add(doc)
-	setFormData((prev) => {
-		return { ...prev, cid: result.path };
-	})
-	getHash(formData.verifier)
-	
-	console.log(formData)
+	getHash(result.path, formData.verifier);
 }
 
 	
