@@ -127,7 +127,7 @@ contract SmartContract {
     function verifyReq(address user, uint index, bool decision) public {
         if (decision) {
             VReq memory vreq = VerifierVReqs[user][index];
-            vreq.status = 1;
+            VerifierVReqs[user][index].status = 1;
             UserVReqs[vreq.user][vreq.metaIndex].status = 1;
             if (keccak256(abi.encodePacked(vreq.scopes.name)) != keccak256(abi.encodePacked(""))) {
                 UserInfo[vreq.user].name = vreq.scopes.name;
