@@ -3,5 +3,5 @@ const abi = require('./SmartContract.json');
 
 module.exports = {
     contractABI: abi.abi,
-    contractAddress: '0xe5F59B2468C4821D1BCE3c774eE85e810129550E'
+    contractAddress: '0x64a484Cf43186e54e4c87edc6B7A94B168B20f55'
 }

@@ -34,8 +34,18 @@ contract SmartContract {
 
     mapping(address => mapping(address => Scopes)) UserOrgAccess;
 
+    mapping(string => string) addressVerifierMap;
+    mapping(string => string) verifierAddressMap;
+
     constructor() public {
         owner = msg.sender;
+
+        addressVerifierMap["0x27510d27b0B5c8c813A893726DcEAB6a933345da"] = "RTO";
+        verifierAddressMap["RTO"] = "0x27510d27b0B5c8c813A893726DcEAB6a933345da";
+        addressVerifierMap["0xf4b949991740de4c090851059ebf9d985fb46bb3"] = "MNNIT A";
+        verifierAddressMap["MNNIT A"] = "0xf4b949991740de4c090851059ebf9d985fb46bb3";
+        addressVerifierMap["0xb9f72ef4c0f0d306a6b12e3d869be1c8a126f0ae"] = "UIDAI";
+        verifierAddressMap["UIDAI"] = "0xb9f72ef4c0f0d306a6b12e3d869be1c8a126f0ae";
     }
 
     function addVReq(
@@ -260,5 +270,13 @@ contract SmartContract {
             UserOrgAccess[user][msg.sender].isOver18,
             UserOrgAccess[user][msg.sender].isCollegeStudent
         );
+    }
+
+    function getVerifierAddress(string memory verifier) public view returns (string memory verifierAddress) {
+        return verifierAddressMap[verifier];
+    }
+
+    function getVerifierName(string memory verifierAddress) public view returns (string memory verifierName) {
+        return addressVerifierMap[verifierAddress];
     }
 }

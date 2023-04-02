@@ -1,7 +1,7 @@
 import abi from './SmartContract.json';
 
 export const contractABI = abi.abi;
-export const contractAddress = '0xe5F59B2468C4821D1BCE3c774eE85e810129550E';
+export const contractAddress = '0x64a484Cf43186e54e4c87edc6B7A94B168B20f55';
 
 //IPFS
 export const projectId = '2NTEjHeG4NfpOuXQtsMzDCN7aVy'
