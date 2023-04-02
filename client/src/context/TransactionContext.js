@@ -140,6 +140,22 @@ export const TransactionsProvider = ({ children }) => {
     }
   }
 
+  const getVerifierAddress = async (verifier) => {
+    try {
+      if (ethereum) {
+        const transactionsContract = createEthereumContract();
+        const address = await transactionsContract.getVerifierAddress(verifier);
+        return address;
+      } else {
+        console.log("Ethereum is not present");
+        return "";
+      }
+    } catch (error) {
+      console.log(error);
+      return "";
+    }
+  }
+
   const giveAccess = async (
     org,
     callback,
@@ -278,7 +294,8 @@ export const TransactionsProvider = ({ children }) => {
         submitDocument,
         giveAccess,
         isAdmin,
-        verify
+        verify,
+        getVerifierAddress
       }}
     >
       {children}

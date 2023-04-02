@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { create  } from "ipfs-http-client";
 import { TransactionContext } from "../context/TransactionContext";
-import * as API from "../api/index";
 import Web3 from 'web3';
 import { ethers } from "ethers";
 import Nav from "../components/nav";
@@ -25,7 +24,7 @@ const AddDocument = () => {
 
 	const [fields, setFields] = useState([])
 	const [selectedField, setSelectedField] = useState()
-	const { submitDocument } = useContext(TransactionContext)
+	const { submitDocument, getVerifierAddress } = useContext(TransactionContext)
 	
 	const authorization =
 		'Basic ' + window.btoa(projectId + ':' + projectSecretKey)
@@ -47,11 +46,10 @@ const AddDocument = () => {
 
 const getHash = (name) => {
 	try {
-		API.getVerifierHash(name).then((res) => {
-			console.log(res.data.result)
-			setFormData({ ...formData, verifier: res.data.result })
-			setIsHash(1)
-		})
+		getVerifierAddress(name).then(address => {
+			setFormData({ ...formData, verifier: address });
+			setIsHash(1);
+		});
 	} catch (error) {
 		console.log(error)
 	}
@@ -164,11 +162,11 @@ const handleSubmit = async (e) => {
 		<div className='w-full h-full overflow-x-hidden'>
 			<Nav />
 
-			<div className='w-full flex flex-col items-center pb-20'>
+			<div className='flex flex-col items-center w-full pb-20'>
 				<h1 className='text-3xl font-bold m-7'>Add Verification Request</h1>
 
 				<form
-					className='w-full flex flex-col items-center'
+					className='flex flex-col items-center w-full'
 					onSubmit={handleSubmit}
 				>
 					<div className='w-[40%] my-3'>
@@ -232,7 +230,7 @@ const handleSubmit = async (e) => {
 					{/* ADD FIELDS */}
 					<div className='w-[40%] my-3'>
 						<label>Add Fields</label>
-						<div className='w-full flex'>
+						<div className='flex w-full'>
 							<select
 								class='block appearance-none w-1/2 bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
 								placeholder='type of document'
