@@ -26,16 +26,6 @@ export const TransactionsProvider = ({ children }) => {
   const [verifierVReqList,setVerifierVReqList] = useState([]);
   const [isAdmin,setIsAdmin] = useState();
 
-  const getVerifierName = async (hash_id) => {
-    try {
-      const res = await API.getVerifierName(hash_id)
-      return res.data.result;
-    } catch (error) {
-      console.log(error)
-      return "";
-    }
-  }
-
   const submitDocument = async (
     verifier,
     cid,
@@ -81,9 +71,7 @@ export const TransactionsProvider = ({ children }) => {
         while(i<length){
           const obj = {};
           const res = await transactionsContract.showUserVerificationReqList(i);
-          console.log(res[0].toLowerCase());
           obj.verifier = await getVerifierName(res[0].toLowerCase())
-          // obj.verifier = res[0]
           obj.status = res[1].toNumber()
           userList.push(obj)
           i++;
@@ -146,6 +134,22 @@ export const TransactionsProvider = ({ children }) => {
         const transactionsContract = createEthereumContract();
         const address = await transactionsContract.getVerifierAddress(verifier);
         return address;
+      } else {
+        console.log("Ethereum is not present");
+        return "";
+      }
+    } catch (error) {
+      console.log(error);
+      return "";
+    }
+  }
+
+  const getVerifierName = async (address) => {
+    try {
+      if (ethereum) {
+        const transactionsContract = createEthereumContract();
+        const name = await transactionsContract.getVerifierName(address);
+        return name;
       } else {
         console.log("Ethereum is not present");
         return "";
@@ -267,9 +271,8 @@ export const TransactionsProvider = ({ children }) => {
 
   useEffect(() => {
     if(currentAccount){ 
-      API.login(currentAccount).then((res) => {
-        console.log("SS",currentAccount,res.data.isVerifier)
-        if (res.data.isVerifier) 
+      getVerifierName(currentAccount.toLowerCase()).then((name) => {
+        if (name !== "") 
           setIsAdmin(true)
         else 
           setIsAdmin(false)
@@ -295,7 +298,8 @@ export const TransactionsProvider = ({ children }) => {
         giveAccess,
         isAdmin,
         verify,
-        getVerifierAddress
+        getVerifierAddress,
+        getVerifierName
       }}
     >
       {children}

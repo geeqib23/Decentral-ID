@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { TransactionContext } from "../context/TransactionContext";
 import { Navigate, useNavigate} from "react-router-dom";
-import * as API from "../api/index";
 
 function Wallet(props) {
   return (
@@ -11,15 +10,13 @@ function Wallet(props) {
 
 
 const Login = () => {
-  const { connectWallet, currentAccount } = useContext(TransactionContext);
+  const { connectWallet, currentAccount, getVerifierName } = useContext(TransactionContext);
 //   const [redirectState, setRedirectState] = useState(0);
   const navigate = useNavigate();
   useEffect(() => {
     if (currentAccount != "") {
-		console.log(currentAccount)
-      API.login(currentAccount).then((res) => {
-		console.log(res.data.isVerifier)
-        if (res.data.isVerifier) 
+    getVerifierName(currentAccount.toLowerCase()).then((name) => {
+        if (name !== "") 
           navigate('/admin')
         else 
           navigate('/home')

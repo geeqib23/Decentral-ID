@@ -3,17 +3,16 @@ import { TiTick } from 'react-icons/ti'
 import { RxCrossCircled } from 'react-icons/rx'
 import { useSearchParams } from 'react-router-dom'
 import { TransactionContext } from "../context/TransactionContext";
-import * as API from "../api/index";
 
 export default function Access() {
 	const [orgName, setOrgName] = useState('');
-	const { checkIfWalletIsConnect, giveAccess, currentAccount } = useContext(TransactionContext);
+	const { checkIfWalletIsConnect, giveAccess, currentAccount, getVerifierName } = useContext(TransactionContext);
 
 	useEffect(() => {
 		checkIfWalletIsConnect();
 
-		API.getVerifierName(query.org).then((res) => {
-			setOrgName(res.data.result);
+		getVerifierName(query.org).then((name) => {
+			setOrgName(name);
 		}).catch(err => console.log(err));
 	}, []);
 
