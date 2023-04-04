@@ -26,16 +26,17 @@ app.get("/callback", (req, res) => {
   if (req.query.status === '200')
   {
     let name, isOver18;
-    smartContract.methods.showUserInfoByOrg(req.query.user).call({ from: address }).then(res => {
-      name = res.name;
+    smartContract.methods.showUserInfoByOrg(req.query.user).call({ from: address }).then(data => {
+      name = data.name;
+      smartContract.methods.showUserInfoBoolsByOrg(req.query.user).call({ from: address }).then(data => {
+        isOver18 = data.isOver18;
+        
+        if (isOver18)
+          res.render("home", { name });
+        else
+          res.render("not_allowed");
+      });
     });
-    smartContract.methods.showUserInfoBoolsByOrg(req.query.user).call({ from: address }).then(res => {
-      isOver18 = res.isOver18;
-    });
-    if (isOver18)
-      res.render("home", { name });
-    else
-      res.render("not_allowed");
   }
   else
   {
