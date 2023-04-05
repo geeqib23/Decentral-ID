@@ -45,6 +45,7 @@ Just to prove their identity, users are forced to give away their personal docum
 ![3](./demo/3.jpeg)
 ![4](./demo/4.jpeg)
 ![5](./demo/5.jpeg)
+![arch](./demo/architecture.jpeg)
 
 ## Challenges We Faced
 1. Learning Solidity and IPFS : All of us were not too much familiar with solidity and we've learned it on the go as we made this project.
