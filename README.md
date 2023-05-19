@@ -40,19 +40,19 @@ So multiple goals are achieved through our project.
 
 1. Smart Contracts - We wrote our smart contracts in Solidity. We used Hardhat to run them on a development network and test them and finally deployed them on the Blockchain. We use these contracts to make implement logic and store data through ETH transactions.
 2. Frontend - We used ReactJS for UI and TailwindCSS for styling.
-3. Backend - We used ExpressJS to create the server and listen to requests from client. MongoDB Atlas as our database for storing information about the user’s hashes and their trust scores. We’ll also manually store the hashes of the wallets of the verifiers which will get access to the document uploaded by the user.
-4. Metamask - MetaMask is a software cryptocurrency wallet used to interact with the Ethereum blockchain. We used its browser extension to access the Ethereum wallet and interact with our application.
-5. IPFS - IPFS or InterPlanetary File System, is a peer-to-peer distributed file system that allows users to store and access files in a decentralized manner. Instead of relying on a central server, IPFS uses a distributed network of nodes to store and share files. We used IPFS to store user’s documents so the verifier can access them later and check whether it’s authentic or not. Only the user and the verifier of the document can access the document from IPFS.
+3. Metamask - MetaMask is a software cryptocurrency wallet used to interact with the Ethereum blockchain. We used its browser extension to access the Ethereum wallet and interact with our application.
+4. IPFS - IPFS or InterPlanetary File System, is a peer-to-peer distributed file system that allows users to store and access files in a decentralized manner. Instead of relying on a central server, IPFS uses a distributed network of nodes to store and share files. We used IPFS to store user’s documents so the verifier can access them later and check whether it’s authentic or not. Only the user and the verifier of the document can access the document from IPFS.
 
 
 ## Demo
 
+![arch](./demo/architecture.jpeg)
 ![1](./demo/1.jpeg)
 ![2](./demo/2.jpeg)
 ![3](./demo/3.jpeg)
 ![4](./demo/4.jpeg)
 ![5](./demo/5.jpeg)
-![arch](./demo/architecture.jpeg)
+
 
 ## Challenges We Faced
 1. Learning Solidity and IPFS : All of us were not too much familiar with solidity and we've learned it on the go as we made this project.
