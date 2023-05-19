@@ -23,14 +23,14 @@ This project was developed by us, **Team ECMAniacs**, as a submission for [Hack3
 
 ---
 
-Through this project, we aim to build a decentralized identity verification service that addresses that addresses the issues of data breach and identity theft.
+Through this project, we aim to build a decentralized identity verification service that addresses the issues of data breach and identity theft.
 
 ## Why We Built This
 There are many websites and services out there which require us to submit our official documents online to them for purposes such as ID Verification, Age Verification and so on.
 Just to prove their identity, users are forced to give away their personal documents which contain a lot more personal data than the user may want to share. Also, there are great chances of the user data being compromised due to data breaches and data theft. This leads to problems of privacy, security, and trust.
 
 ## How we solve the problem
-Through this project, we aim to build a decentralized identity verification service that addresses that addresses these issues. It does so by eliminating the need of uploading documents onto these third-party websites and providing users with full control over the data that they want to share. Our system should allow users to verify their identity, while preserving their privacy and security.
+Through this project, we aim to build a decentralized identity verification service that addresses these issues. It does so by eliminating the need of uploading documents onto these third-party websites and providing users with full control over the data that they want to share. Our system should allow users to verify their identity, while preserving their privacy and security.
 The documents of the user are shared only to the issuing authority for verification (which already has it) and no one else.
 Third party apps can use our API service to verify the user and also it saves them work because we do the verification for them.
 So multiple goals are achieved through our project.
